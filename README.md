@@ -1,10 +1,22 @@
 # mini-im
-简单的go写的im服务，流程简单清晰，采用golang编写，分为login、msg、msg-push、online等服务。可以自己扩充其他协议和服务。
 
-## 流程图
+## 1、说明：
+  简单的go写的im服务，流程简单清晰，采用golang编写，分为login、msg、msg-push、online等服务。可以自己扩充其他协议和服务。
+  目前有如下服务：
+    login: 用户登录服务，这里面没有写用户认证什么的，大家可以根据自己的业务需求来完成。
+    msg: 消息服务，处理消息接收
+    msg-push: 消息推送服务，单聊消息推送
+    online: 在线状态服务，用户在线状态放在这里，内部使用redis存放。login服务
+
+## 2、登陆
+
+
+## 3、单聊消息：流程图
+
+### 3.1、单聊流程图
 ![image](https://github.com/user-attachments/assets/e2c9d082-3f4b-4cd5-baf6-56597ef6e684)
 
-### 流程图MMD文档
+### 3.2、单聊流程图MMD文档
 ```
 sequenceDiagram
     participant A as 用户A

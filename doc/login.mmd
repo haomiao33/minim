@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant A as 用户A
+    participant B as 用户B
+    participant ServerLogin as Login服务
+    participant ServerOnline as Online服务
+
+    A->>ServerLogin: 连接和登陆
+    ServerLogin->>ServerOnline: 登陆状态更新
+    ServerLogin-->>A: 登陆成功ack
