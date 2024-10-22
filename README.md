@@ -23,7 +23,8 @@
         
     online: 在线状态服务，用户在线状态放在这里，内部使用redis存放。login服务
 
-
+## 1、2 项目部署：
+查看 [部署方法](doc/部署.md) 文件
 
 ## 2、登陆
 ![image](https://github.com/user-attachments/assets/4a7c0987-ed71-4184-bcc8-4ce929dcb0a0)
