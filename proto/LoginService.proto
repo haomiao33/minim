@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto"; // 引入预定义的 Empty 类型
+
+package myservice;
+
+option go_package = "./pb"; // Go 包路径
+
+service LoginService {
+  //推送消息给客户端
+  rpc PushMsg (PushRequest) returns (google.protobuf.Empty);
+}
+
+message PushRequest {
+  int64 userId = 1;
+  //推送的数据
+  string data = 2;
+}

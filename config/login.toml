@@ -1,0 +1,15 @@
+[Websocket]
+ListenHost = "0.0.0.0"
+ListenPort = 3000
+Multicore = true
+
+[Router]
+Address = "192.168.0.103:4000"
+
+
+[Consul]
+Address = "192.168.0.103:8500"
+
+[Rpc]
+ListenHost = "192.168.0.103"
+ListenPort = 4001

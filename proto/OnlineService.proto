@@ -1,0 +1,35 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto"; // 引入预定义的 Empty 类型
+
+package myservice;
+
+option go_package = "./pb"; // Go 包路径
+
+service OnlineService {
+  //上线和心跳
+  rpc UpdateOnlineUser (UpdateOnlineUserRequest) returns (google.protobuf.Empty);
+  //获取用户
+  rpc GetOnlineUser (GetOnlineUserRequest) returns (GetOnlineUserResp);
+  //下线
+  rpc OutlineUser (GetOnlineUserRequest) returns (google.protobuf.Empty);
+}
+
+message UpdateOnlineUserRequest {
+  int64 userId = 1;
+  //这里是login服务器订阅的topic
+  string serverId = 2;
+  //ts
+  int64 lastUpdateTs = 3;
+}
+
+message GetOnlineUserRequest {
+  int64 userId = 1;
+}
+
+message GetOnlineUserResp {
+  int64 userId = 1;
+  //这里是login服务器订阅的topic
+  string serverId = 2;
+  //最后更新时间戳
+  int64 lastUpdateTs = 3;
+}

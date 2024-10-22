@@ -1,0 +1,23 @@
+[Rpc]
+ListenHost = "192.168.0.103"
+ListenPort = 4002
+
+[Database]
+Host = "192.168.0.103"
+Port = 3306
+User = "root"
+Password = "my-secret-pw"
+Database = "xiaogongqiu"
+
+[Redis]
+Addr = "192.168.0.103:6379"
+Password = ""
+
+[Consul]
+Address = "192.168.0.103:8500"
+
+[Kafka]
+Addresses = "192.168.0.103:9092"
+MsgTopic = "im-msg"
+MsgTopicGroup = "im-msg-group-1000"
+MsgPartitionCount = 1

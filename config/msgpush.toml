@@ -1,0 +1,11 @@
+[Rpc]
+ListenHost = "192.168.0.103"
+ListenPort = 4003
+
+[Consul]
+Address = "192.168.0.103:8500"
+
+[Kafka]
+Addresses = "192.168.0.103:9092"
+MsgTopic = "im-msg"
+MsgTopicGroup = "im-msg-group-1000"
