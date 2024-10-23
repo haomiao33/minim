@@ -8,6 +8,8 @@
   作者：目前打算golang编写im，支持单聊、群聊、推送； 然后客户端目前只打算做个flutter im chat 版本的就行。方便大家集成。
 
   文档放在doc里面了
+
+  websocket底层才用[gnet](https://github.com/panjf2000/gnet) ，后续可以很轻松扩展到tcp和udp
   
   sql里面是数据库，自己创建一个就行
 
