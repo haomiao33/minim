@@ -24,8 +24,12 @@ sequenceDiagram
             consul-->>ServerMsgPush: 返回地址
             ServerMsgPush->>ServerMsgPush: 连接和存放到内存map中
         end
-        ServerMsgPush->>ServerLogin: 发送msgsync通知消息
+        ServerMsgPush->>ServerLogin: 发送msgSyncNotify通知消息
         ServerLogin-->>B: 发送msgsync通知消息
     else 用户不在线
         ServerMsgPush->>ServerMsgPush: 进行离线推送
     end
+    B->>ServerLogin: 10、同步消息msgSync
+    ServerLogin->>ServerMsg: 11、同步消息
+    ServerMsg-->>ServerLogin: 12、同步消息成功ack
+    ServerLogin-->>B: 13、同步消息成功ack
