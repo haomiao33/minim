@@ -41,3 +41,33 @@ type ImMsgSyncNotifyCommand struct {
 	FromId   int64
 	ToId     int64
 }
+
+// 同步单聊消息
+type ImMsgSyncCommandReq struct {
+	ConversationId int64 `json:"conversationId"`
+	Sequence       int64 `json:"sequence"`
+	UserId         int64 `json:"userId"`
+}
+
+// 同步单聊消息返回
+// 单聊 消息 item
+type ImMsgItem struct {
+	Id             string `json:"id"`
+	ConversationId int64  `json:"conversationId"`
+	MsgType        int    `json:"msgType"`
+	FromId         int64  `json:"fromId"`
+	ToId           int64  `json:"toId"`
+	ChatType       int    `json:"chatType"`
+	Content        string `json:"content"`
+	Status         int    `json:"status"`
+	MsgRead        int    `json:"msgRead"`
+	Sequence       int64  `json:"sequence"`
+	ReplyTo        int64  `json:"replyTo"`
+	MsgAudit       int    `json:"msgAudit"`
+	RefId          string `json:"refId"`
+	Revoked        int    `json:"revoked"`
+	RevokedTime    int64  `json:"revokedTime"`
+	RevokedBy      int64  `json:"revokedBy"`
+	CreatedTime    int64  `json:"createdTime"`
+	UpdateTime     int64  `json:"updateTime"`
+}

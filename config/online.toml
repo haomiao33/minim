@@ -1,12 +1,12 @@
 [Rpc]
-ListenHost = "192.168.0.103"
+ListenHost = "192.168.0.105"
 ListenPort = 4004
 
 [Consul]
-Address = "192.168.0.103:8500"
+Address = "192.168.0.105:8500"
 
 [Redis]
-Addr = "192.168.0.103:6379"
+Addr = "192.168.0.105:6379"
 Password = ""
 
 [App]

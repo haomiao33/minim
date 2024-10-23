@@ -5,10 +5,13 @@ package myservice;
 option go_package = "./pb"; // Go 包路径
 
 service MsgService {
+  //发送单聊消息
   rpc SendMessage (ImMsgRequest) returns (ImMsgResponse);
+  //同步消息
+  rpc SyncMessage (ImMsgSyncRequest) returns (SyncResponse);
 }
 
-//	Ts int64 `json:"ts"`
+//单聊 发送消息
 message ImMsgRequest {
   string msgId = 1;
   //0=单聊；1=一般群； 2=机器人
@@ -30,10 +33,28 @@ message ImMsgResponseData {
   int64  sequence = 2;
   int64  conversationId=3;
 }
-
+//单聊了消息发送反馈
 message ImMsgResponse {
   string type = 1;
   int32 code = 2;
   string msg = 3;
   ImMsgResponseData data = 4;
+}
+
+//单聊同步消息
+message ImMsgSyncRequest{
+  //会话id
+  int64 conversationId = 1;
+  //userId
+  int64 userId = 2;
+  //客户端本地会话最大消息序号
+  int64 sequence = 3;
+}
+
+//单聊同步消息返回
+message SyncResponse{
+  string type = 1;
+  int32 code = 2;
+  string msg = 3;
+  string data = 4;
 }

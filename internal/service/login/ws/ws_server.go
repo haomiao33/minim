@@ -293,7 +293,7 @@ func (wss *WsServer) OnLogin(c gnet.Conn, body []byte) gnet.Action {
 
 	//登陆成功
 	cmd := command.ImLoginCommandResp{
-		Type: command.COMMAND_TYPE_LOGIN_RESP,
+		Type: command.COMMAND_TYPE_LOGIN_ACK,
 		Code: 200,
 		Msg:  "success",
 	}
@@ -333,7 +333,7 @@ func (wss *WsServer) OnImMsg(c gnet.Conn, body []byte) gnet.Action {
 	if err != nil {
 		logging.Errorf("routerClient.SendMessage err; %v", err)
 		cmd := command.ImMsgCommandResp{
-			Type: command.COMMAND_RESP_TYPE_MSG_ACK,
+			Type: command.COMMAND_TYPE_MSG_ACK,
 			Code: command.COMMAND_RESP_CODE_SERVER_ERR,
 			Msg:  "server error",
 			Data: map[string]interface{}{
@@ -387,8 +387,32 @@ func (wss *WsServer) PushMsg(ctx context.Context, req *pb.PushRequest) (*emptypb
 }
 
 // 客户端请求消息同步
-func (ws *WsServer) OnMsgSync(c gnet.Conn, body []byte) gnet.Action {
+func (wss *WsServer) OnMsgSync(c gnet.Conn, body []byte) gnet.Action {
 	//todo 客户端同步消息
+	var msgCmd command.ImMsgSyncCommandReq
+	err := json.Unmarshal(body, &msgCmd)
+	if err != nil {
+		logging.Errorf("bad ImMsgSyncCommandReq, %v, req:%s", err, string(body))
+		return gnet.None
+	}
 	//客户端发送最后一次的同步序列+会话ID
+	ret, err := wss.msgRpcClient.SyncMessage(wss.ctx, &pb.ImMsgSyncRequest{
+		ConversationId: msgCmd.ConversationId,
+		UserId:         msgCmd.UserId,
+		Sequence:       msgCmd.Sequence,
+	})
+	if err != nil {
+		logging.Errorf("msgRpcClient.SyncMessage err; %v, data:%s", err, string(body))
+		return gnet.None
+	}
+
+	cmd := command.ImMsgCommandResp{
+		Type: ret.Type,
+		Code: ret.Code,
+		Msg:  ret.Msg,
+		Data: ret.Data,
+	}
+	marshal, _ := json.Marshal(cmd)
+	wsutil.WriteServerMessage(c, ws.OpText, marshal)
 	return gnet.None
 }

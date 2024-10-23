@@ -20,13 +20,17 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	MsgService_SendMessage_FullMethodName = "/myservice.MsgService/SendMessage"
+	MsgService_SyncMessage_FullMethodName = "/myservice.MsgService/SyncMessage"
 )
 
 // MsgServiceClient is the client API for MsgService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MsgServiceClient interface {
+	// 发送单聊消息
 	SendMessage(ctx context.Context, in *ImMsgRequest, opts ...grpc.CallOption) (*ImMsgResponse, error)
+	// 同步消息
+	SyncMessage(ctx context.Context, in *ImMsgSyncRequest, opts ...grpc.CallOption) (*SyncResponse, error)
 }
 
 type msgServiceClient struct {
@@ -47,11 +51,24 @@ func (c *msgServiceClient) SendMessage(ctx context.Context, in *ImMsgRequest, op
 	return out, nil
 }
 
+func (c *msgServiceClient) SyncMessage(ctx context.Context, in *ImMsgSyncRequest, opts ...grpc.CallOption) (*SyncResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SyncResponse)
+	err := c.cc.Invoke(ctx, MsgService_SyncMessage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServiceServer is the server API for MsgService service.
 // All implementations must embed UnimplementedMsgServiceServer
 // for forward compatibility.
 type MsgServiceServer interface {
+	// 发送单聊消息
 	SendMessage(context.Context, *ImMsgRequest) (*ImMsgResponse, error)
+	// 同步消息
+	SyncMessage(context.Context, *ImMsgSyncRequest) (*SyncResponse, error)
 	mustEmbedUnimplementedMsgServiceServer()
 }
 
@@ -64,6 +81,9 @@ type UnimplementedMsgServiceServer struct{}
 
 func (UnimplementedMsgServiceServer) SendMessage(context.Context, *ImMsgRequest) (*ImMsgResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendMessage not implemented")
+}
+func (UnimplementedMsgServiceServer) SyncMessage(context.Context, *ImMsgSyncRequest) (*SyncResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SyncMessage not implemented")
 }
 func (UnimplementedMsgServiceServer) mustEmbedUnimplementedMsgServiceServer() {}
 func (UnimplementedMsgServiceServer) testEmbeddedByValue()                    {}
@@ -104,6 +124,24 @@ func _MsgService_SendMessage_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MsgService_SyncMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ImMsgSyncRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServiceServer).SyncMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MsgService_SyncMessage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServiceServer).SyncMessage(ctx, req.(*ImMsgSyncRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MsgService_ServiceDesc is the grpc.ServiceDesc for MsgService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +152,10 @@ var MsgService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendMessage",
 			Handler:    _MsgService_SendMessage_Handler,
+		},
+		{
+			MethodName: "SyncMessage",
+			Handler:    _MsgService_SyncMessage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

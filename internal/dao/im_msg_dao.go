@@ -30,6 +30,23 @@ func (m *ImMsgDao) GetMsg(tx *gorm.DB, msgId string) (*model.ImMsg, error) {
 	return &msgModel, nil
 }
 
+// 获取会话中大于指定序号的所有消息
+func (m *ImMsgDao) GetMsgList(tx *gorm.DB, conversationId int64, sequence int64) ([]model.ImMsg, error) {
+	var items []model.ImMsg
+	ret := tx.Table("im_msg").
+		Where("conversation_id = ?", conversationId).
+		Where("sequence > ?", sequence).
+		Order("sequence asc").
+		Find(&items)
+	if ret.Error != nil {
+		if errors.Is(ret.Error, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, ret.Error
+	}
+	return items, nil
+}
+
 func (m *ImMsgDao) AddMsg(tx *gorm.DB,
 	conversationId int64,
 	sequence int64,

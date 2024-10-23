@@ -3,6 +3,9 @@ const WebSocket = require("ws");
 // 连接到 WebSocket 服务器
 const ws = new WebSocket("ws://0.0.0.0:3000"); // 替换为你的 WebSocket 服务器地址
 
+let sequence = 0
+let localMsg = []
+
 // 当连接打开时
 ws.on("open", () => {
     console.log("Connected to server");
@@ -40,14 +43,32 @@ ws.on("open", () => {
 // 接收消息
 ws.on("message", (data) => {
     const ret = JSON.parse(data);
-    console.log("Message from server:",ret );
-    if(ret.code = 'msg'){
-        //新消息
-        // ws.send(JSON.stringify({ type: "msgack", data:{
-        //     id: ret.data.id,
-        //     //0=已发送, 1=已送达, 2=已读, 3=已撤回
-        //     status: 1
-        // } }));
+    if(ret.type == 'loginAck'){ 
+        //消息发送成功
+        console.log("------  loginAck success --- ",ret);
+    }
+    else if(ret.type == 'msgAck'){ 
+        //消息发送成功
+        console.log("------  msg send success --- ",ret.data);
+    }
+    else if(ret.type == 'msgSyncNotify'){
+        //有新消息
+        console.log("------ new msg sync notify --- ",ret.data);
+
+        //同步消息请求
+        ws.send(JSON.stringify({ type: "msgSync", data: {
+            conversationId: ret.data.ConversationId,
+            sequence: sequence,
+            userId: 123,
+        } }));
+    }else if(ret.type == 'msgSyncAck'){
+        //同步消息返回
+        console.log("------ msg sync ack --- ",ret);
+        let arr=JSON.parse(ret.data)
+        console.log('---msg length:',arr.length)
+        console.log('---msg last seq:',arr[arr.length-1].sequence)
+    }else{
+        console.log("------ other msg --- ",ret);
     }
 });
 

@@ -196,7 +196,7 @@ func (s *MsgServer) handleSingleMsg(ctx context.Context, msg *pb.ImMsgRequest) (
 	}
 
 	return &pb.ImMsgResponse{
-		Type: command.COMMAND_RESP_TYPE_MSG_ACK,
+		Type: command.COMMAND_TYPE_MSG_ACK,
 		Code: command.COMMAND_RESP_CODE_SUCESS,
 		Msg:  "success",
 		Data: &pb.ImMsgResponseData{
@@ -214,7 +214,7 @@ func (s *MsgServer) SendMessage(ctx context.Context, msg *pb.ImMsgRequest) (*pb.
 	if err != nil {
 		logging.Errorf("send message to kafka error: %v", err)
 		return &pb.ImMsgResponse{
-			Type: command.COMMAND_RESP_TYPE_MSG_ACK,
+			Type: command.COMMAND_TYPE_MSG_ACK,
 			Code: command.COMMAND_RESP_CODE_SERVER_ERR,
 			Msg:  "error to send to kafka",
 			Data: &pb.ImMsgResponseData{
@@ -223,6 +223,21 @@ func (s *MsgServer) SendMessage(ctx context.Context, msg *pb.ImMsgRequest) (*pb.
 		}, nil
 	}
 	return resp, nil
+}
+
+// 同步单聊消息
+func (s *MsgServer) SyncMessage(ctx context.Context, msg *pb.ImMsgSyncRequest) (*pb.SyncResponse, error) {
+	list, err := dao.MsgDao.GetMsgList(db.Db, msg.ConversationId, msg.Sequence)
+	if err != nil {
+		return nil, err
+	}
+	marshal, _ := json.Marshal(list)
+	return &pb.SyncResponse{
+		Type: command.COMMAND_TYPE_MSG_SYNC_ACK,
+		Code: command.COMMAND_RESP_CODE_SUCESS,
+		Msg:  "success",
+		Data: string(marshal),
+	}, nil
 }
 
 func (s *MsgServer) Run() {
