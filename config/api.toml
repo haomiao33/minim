@@ -1,0 +1,25 @@
+
+[Consul]
+Address = "haomiao-yx.com:8500"
+
+[App]
+Listener = "0.0.0.0:3100"
+
+[Database]
+Host = "haomiao-yx.com"
+Port = 3306
+User = "root"
+Password = "my-secret-pw"
+Database = "xiaogongqiu"
+
+
+[Redis]
+Addr = "haomiao-yx.com:6379"
+Password = ""
+
+
+[Kafka]
+Addresses = "haomiao-yx.com:9092"
+MsgTopic = "im-msg-push"
+MsgTopicGroup = "im-msg-push-group-1000"
+MsgPartitionCount = 1

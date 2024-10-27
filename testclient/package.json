@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "c456":"node client-456.js",
+    "c123":"node client-123.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

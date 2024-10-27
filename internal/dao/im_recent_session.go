@@ -30,19 +30,20 @@ func (s *ImRecentSessionDao) Get(tx *gorm.DB, chatType int32, userId int64, othe
 	return &session, nil
 }
 
-func (s *ImRecentSessionDao) Add(tx *gorm.DB, chatType int32, userId int64, otherId int64,
+func (s *ImRecentSessionDao) Add(tx *gorm.DB, conversationId int64, chatType int32, userId int64, otherId int64,
 	lastMsgId string, lastMsg string, lastMsgTime time.Time) error {
 	session := model.ImRecentSession{
-		UserID:      userId,
-		OtherID:     otherId,
-		Type:        int(chatType),
-		LastMsgId:   lastMsgId,
-		LastMsg:     lastMsg,
-		LastMsgTime: lastMsgTime,
-		CreatedTime: null.TimeFrom(time.Now()),
-		UpdatedTime: null.TimeFrom(time.Now()),
-		SessionMute: 0,
-		SessionTop:  0,
+		UserID:         userId,
+		OtherID:        otherId,
+		Type:           int(chatType),
+		ConversationId: conversationId,
+		LastMsgId:      lastMsgId,
+		LastMsg:        lastMsg,
+		LastMsgTime:    lastMsgTime,
+		CreatedTime:    null.TimeFrom(time.Now()),
+		UpdatedTime:    null.TimeFrom(time.Now()),
+		SessionMute:    0,
+		SessionTop:     0,
 	}
 	ret := tx.Table("im_recent_session").Create(&session)
 	if ret.Error != nil {

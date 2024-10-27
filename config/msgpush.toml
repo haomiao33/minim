@@ -1,11 +1,11 @@
 [Rpc]
-ListenHost = "192.168.0.105"
+ListenHost = "haomiao-yx.com"
 ListenPort = 4003
 
 [Consul]
-Address = "192.168.0.105:8500"
+Address = "haomiao-yx.com:8500"
 
 [Kafka]
-Addresses = "192.168.0.105:9092"
-MsgTopic = "im-msg"
-MsgTopicGroup = "im-msg-group-1000"
+Addresses = "haomiao-yx.com:9092"
+MsgTopic = "im-msg-push"
+MsgTopicGroup = "im-msg-push-group-1000"

@@ -36,6 +36,7 @@ func (m *ImMsgDao) GetMsgList(tx *gorm.DB, conversationId int64, sequence int64)
 	ret := tx.Table("im_msg").
 		Where("conversation_id = ?", conversationId).
 		Where("sequence > ?", sequence).
+		Where("status = ?", 0).
 		Order("sequence asc").
 		Find(&items)
 	if ret.Error != nil {

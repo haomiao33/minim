@@ -4,12 +4,12 @@ ListenPort = 3000
 Multicore = true
 
 [Router]
-Address = "192.168.0.105:4000"
+Address = "haomiao-yx.com:4000"
 
 
 [Consul]
-Address = "192.168.0.105:8500"
+Address = "haomiao-yx.com:8500"
 
 [Rpc]
-ListenHost = "192.168.0.105"
+ListenHost = "haomiao-yx.com"
 ListenPort = 4001

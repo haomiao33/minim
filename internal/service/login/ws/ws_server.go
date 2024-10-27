@@ -51,7 +51,6 @@ type WsServer struct {
 	//router rpc client
 	//routerClient rpcclient.IRouterRpcClient
 
-	msgRpcClient    pb.MsgServiceClient
 	onlineRpcClient pb.OnlineServiceClient
 
 	//给外部提供一个推送给客户端的推送接口
@@ -73,8 +72,6 @@ func NewWsServer(ctx context.Context) login.ServerBase {
 		multicore:  wsConfig.Multicore,
 		ctx:        wsCtx,
 		cancelFunc: cancelFunc,
-		msgRpcClient: rpcclient.NewMsgRpcClient(wsCtx,
-			config.Config.Consul.Address, "MsgService"),
 		onlineRpcClient: rpcclient.NewOnlineRpcClient(wsCtx,
 			config.Config.Consul.Address, "OnlineService"),
 	}
@@ -134,8 +131,7 @@ func (ws *WsServer) Run() {
 
 	log.Fatal(gnet.Run(ws, ws.addr,
 		gnet.WithMulticore(ws.multicore),
-		gnet.WithReusePort(true),
-		gnet.WithTicker(true)))
+		gnet.WithReusePort(true)))
 }
 
 func (ws *WsServer) OnBoot(eng gnet.Engine) gnet.Action {
@@ -223,7 +219,7 @@ func (wss *WsServer) OnTraffic(c gnet.Conn) (action gnet.Action) {
 	}
 	for _, message := range messages {
 		payloadStr := string(message.Payload)
-		var cmd command.ImCommand
+		var cmd command.ImCommandReq
 		err := json.Unmarshal(message.Payload, &cmd)
 		if err != nil {
 			logging.Errorf("conn[%v] [err=%v] [params=%s]",
@@ -251,14 +247,6 @@ func (wss *WsServer) OnTraffic(c gnet.Conn) (action gnet.Action) {
 			//用户登陆
 			body, _ := json.Marshal(cmd.Data)
 			return wss.OnLogin(c, body)
-		case command.COMMAND_TYPE_MSG:
-			logging.Infof("COMMAND_TYPE_MSG :%s", payloadStr)
-			body, _ := json.Marshal(cmd.Data)
-			return wss.OnImMsg(c, body)
-		case command.COMMAND_TYPE_MSG_SYNC:
-			logging.Infof("COMMAND_TYPE_MSG_SYNC :%s", payloadStr)
-			body, _ := json.Marshal(cmd.Data)
-			return wss.OnMsgSync(c, body)
 		default:
 			logging.Errorf("conn[%v] [err=%v] [params=%s]",
 				c.RemoteAddr().String(), "unknown command", payloadStr)
@@ -292,10 +280,10 @@ func (wss *WsServer) OnLogin(c gnet.Conn, body []byte) gnet.Action {
 	})
 
 	//登陆成功
-	cmd := command.ImLoginCommandResp{
-		Type: command.COMMAND_TYPE_LOGIN_ACK,
-		Code: 200,
-		Msg:  "success",
+	cmd := command.ImCommandResp{
+		Type:    command.COMMAND_TYPE_LOGIN_ACK,
+		Code:    200,
+		Message: "success",
 	}
 	marshal, _ := json.Marshal(cmd)
 	wsutil.WriteServerMessage(c, ws.OpText, marshal)
@@ -309,62 +297,6 @@ func (wss *WsServer) OnLogin(c gnet.Conn, body []byte) gnet.Action {
 	return gnet.None
 }
 
-// 私聊消息
-func (wss *WsServer) OnImMsg(c gnet.Conn, body []byte) gnet.Action {
-	var msgCmd command.ImMsgCommandReq
-	err := json.Unmarshal(body, &msgCmd)
-	if err != nil {
-		logging.Errorf("bad ImMsgCommandReq, %v", err)
-		return gnet.Close
-	}
-	ctx, cancel := context.WithTimeout(wss.ctx, time.Second*5)
-	defer cancel()
-
-	//发送到msg服务进行处理
-	ret, err := wss.msgRpcClient.SendMessage(ctx, &pb.ImMsgRequest{
-		ChatType: msgCmd.ChatType,
-		FromId:   msgCmd.FromId,
-		Message:  msgCmd.Message,
-		MsgId:    msgCmd.MsgId,
-		MsgType:  msgCmd.MsgType,
-		ToId:     msgCmd.ToId,
-		Ts:       msgCmd.Ts,
-	})
-	if err != nil {
-		logging.Errorf("routerClient.SendMessage err; %v", err)
-		cmd := command.ImMsgCommandResp{
-			Type: command.COMMAND_TYPE_MSG_ACK,
-			Code: command.COMMAND_RESP_CODE_SERVER_ERR,
-			Msg:  "server error",
-			Data: map[string]interface{}{
-				"msgId": msgCmd.MsgId,
-			},
-		}
-		marshal, _ := json.Marshal(cmd)
-		wsutil.WriteServerMessage(c, ws.OpText, marshal)
-		return gnet.None
-	}
-
-	cmd := command.ImMsgCommandResp{
-		Type: ret.Type,
-		Code: ret.Code,
-		Msg:  ret.Msg,
-		Data: map[string]interface{}{
-			"msgId":          ret.Data.MsgId,
-			"sequence":       ret.Data.Sequence,
-			"conversationId": ret.Data.ConversationId,
-		},
-	}
-	marshal, _ := json.Marshal(cmd)
-	wsutil.WriteServerMessage(c, ws.OpText, marshal)
-	return gnet.None
-}
-
-func (wss *WsServer) OnTick() (delay time.Duration, action gnet.Action) {
-	logging.Infof("[connected-count=%v]", atomic.LoadInt64(&wss.connected))
-	return 10 * time.Second, gnet.None
-}
-
 // 推送消息给客户端
 func (wss *WsServer) PushMsg(ctx context.Context, req *pb.PushRequest) (*emptypb.Empty, error) {
 	logging.Infof("push to to:%d", req.UserId)
@@ -374,6 +306,7 @@ func (wss *WsServer) PushMsg(ctx context.Context, req *pb.PushRequest) (*emptypb
 		user := value.(*OnlineUser)
 		if user.UserId == req.UserId {
 			once.Do(func() {
+				logging.Infof("push to user:%d", user.UserId)
 				err = wsutil.WriteServerMessage(user.Conn, ws.OpText, []byte(req.Data))
 			})
 			return false
@@ -384,35 +317,4 @@ func (wss *WsServer) PushMsg(ctx context.Context, req *pb.PushRequest) (*emptypb
 		return nil, err
 	}
 	return &emptypb.Empty{}, nil
-}
-
-// 客户端请求消息同步
-func (wss *WsServer) OnMsgSync(c gnet.Conn, body []byte) gnet.Action {
-	//todo 客户端同步消息
-	var msgCmd command.ImMsgSyncCommandReq
-	err := json.Unmarshal(body, &msgCmd)
-	if err != nil {
-		logging.Errorf("bad ImMsgSyncCommandReq, %v, req:%s", err, string(body))
-		return gnet.None
-	}
-	//客户端发送最后一次的同步序列+会话ID
-	ret, err := wss.msgRpcClient.SyncMessage(wss.ctx, &pb.ImMsgSyncRequest{
-		ConversationId: msgCmd.ConversationId,
-		UserId:         msgCmd.UserId,
-		Sequence:       msgCmd.Sequence,
-	})
-	if err != nil {
-		logging.Errorf("msgRpcClient.SyncMessage err; %v, data:%s", err, string(body))
-		return gnet.None
-	}
-
-	cmd := command.ImMsgCommandResp{
-		Type: ret.Type,
-		Code: ret.Code,
-		Msg:  ret.Msg,
-		Data: ret.Data,
-	}
-	marshal, _ := json.Marshal(cmd)
-	wsutil.WriteServerMessage(c, ws.OpText, marshal)
-	return gnet.None
 }

@@ -92,10 +92,10 @@ func (s *MsgPushServer) pushMessageToOnlineUser(msg model.ImMsg, serviceId strin
 	}
 
 	// 发送消息
-	cmd := command.ImMsgCommandResp{
-		Type: command.COMMAND_TYPE_MSG_SYNC_NOTIFY,
-		Code: command.COMMAND_RESP_CODE_SUCESS,
-		Msg:  "msg",
+	resp := command.ImCommandResp{
+		Type:    command.COMMAND_TYPE_MSG_SYNC_NOTIFY,
+		Code:    200,
+		Message: "success",
 		Data: command.ImMsgSyncNotifyCommand{
 			FromId:         msg.FromID,
 			ToId:           msg.ToID,
@@ -106,7 +106,7 @@ func (s *MsgPushServer) pushMessageToOnlineUser(msg model.ImMsg, serviceId strin
 			Sequence:       msg.Sequence,
 		},
 	}
-	marshal, _ := json.Marshal(cmd)
+	marshal, _ := json.Marshal(resp)
 	_, err := loginClient.PushMsg(s.ctx, &pb.PushRequest{
 		UserId: msg.ToID,
 		Data:   string(marshal),

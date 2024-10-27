@@ -5,24 +5,13 @@ import (
 	"github.com/spf13/viper"
 )
 
-type MsgConfig struct {
-	Database struct {
-		Host     string
-		Port     int
-		User     string
-		Password string
-		Database string
+type ApiConfig struct {
+	Consul struct {
+		Address string
 	}
 	Redis struct {
 		Addr     string
 		Password string
-	}
-	Consul struct {
-		Address string
-	}
-	Rpc struct {
-		ListenHost string
-		ListenPort int
 	}
 	Kafka struct {
 		Addresses         string
@@ -30,12 +19,22 @@ type MsgConfig struct {
 		MsgTopic          string
 		MsgTopicGroup     string
 	}
+	Database struct {
+		Host     string
+		Port     int
+		User     string
+		Password string
+		Database string
+	}
+	App struct {
+		Listener string
+	}
 }
 
-var Config *MsgConfig
+var Config *ApiConfig
 
 func init() {
-	viper.SetConfigName("msg")          // name of config file (without extension)
+	viper.SetConfigName("api")          // name of config file (without extension)
 	viper.SetConfigType("toml")         // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath("../config")    // call multiple times to add many search paths
 	viper.AddConfigPath("../../config") // call multiple times to add many search paths
