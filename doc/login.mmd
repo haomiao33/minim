@@ -4,9 +4,9 @@ sequenceDiagram
     participant ServerLogin as Login服务
     participant ServerOnline as Online服务
 
-    A->>ServerLogin: 连接和登陆
-    ServerLogin->>ServerOnline: 登陆状态更新
-    ServerLogin-->>A: 登陆成功ack
+    A->>ServerLogin: 连接和登陆（websocket）
+    ServerLogin-->>ServerOnline: 登陆状态更新(rpc)
+    ServerLogin->>A: 登陆成功ack（websocket）
 
-    A->>ServerLogin: 用户心跳
-    ServerLogin->>ServerOnline: 状态更新
+    A->>ServerLogin: 用户心跳（websocket）
+    ServerLogin-->>ServerOnline: 状态更新(rpc)
