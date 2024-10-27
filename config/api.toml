@@ -5,6 +5,10 @@ Address = "haomiao-yx.com:8500"
 [App]
 Listener = "0.0.0.0:3100"
 
+[Log]
+Path = "logs/api.log"
+Level = "debug"
+
 [Database]
 Host = "haomiao-yx.com"
 Port = 3306

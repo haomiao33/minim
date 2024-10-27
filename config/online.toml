@@ -1,3 +1,10 @@
+
+
+[Log]
+Path = "logs/online.log"
+Level = "debug"
+
+
 [Rpc]
 ListenHost = "haomiao-yx.com"
 ListenPort = 4004

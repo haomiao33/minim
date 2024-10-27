@@ -1,0 +1,10 @@
+kafka client run
+2024-10-27T18:14:25.206+0800	kafkaclient/kaka_consumer_client.go:45	kafka client run
+2024-10-27T18:15:53.346+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730024153112-123-456-0-672545, chatType:0, msgType:1, conversationId:13094, sequence:2
+2024-10-27T18:15:53.350+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730024153112-123-456-0-672545
+2024-10-27T18:15:53.358+0800	msg_push/msg_push_server.go:148	end push online message:1730024153112-123-456-0-672545 to 456
+2024-10-27T18:25:15.737+0800	msg_push/msg_push_server.go:178	service instance LoginService-39742ff6-944c-11ef-a119-acde48001122 is offline
+2024-10-27T18:26:04.998+0800	kafkaclient/kaka_consumer_client.go:45	kafka client run
+2024-10-27T18:26:37.316+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730024797201-123-456-0-45396, chatType:0, msgType:1, conversationId:13094, sequence:3
+2024-10-27T18:26:37.324+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730024797201-123-456-0-45396
+2024-10-27T18:26:37.332+0800	msg_push/msg_push_server.go:148	end push online message:1730024797201-123-456-0-45396 to 456

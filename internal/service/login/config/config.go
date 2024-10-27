@@ -6,6 +6,10 @@ import (
 )
 
 type LoginConfig struct {
+	Log struct {
+		Path  string
+		Level string
+	}
 	Websocket struct {
 		ListenHost string
 		ListenPort int
@@ -25,7 +29,7 @@ type LoginConfig struct {
 
 var Config *LoginConfig
 
-func init() {
+func Init() {
 	viper.SetConfigName("login")        // name of config file (without extension)
 	viper.SetConfigType("toml")         // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath("../config")    // call multiple times to add many search paths

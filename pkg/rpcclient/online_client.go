@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	_ "github.com/mbobakov/grpc-consul-resolver"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"google.golang.org/grpc"
+	"im/internal/logger"
 	"im/pb"
 )
 
@@ -16,7 +16,7 @@ func NewOnlineRpcClient(ctx context.Context, address string, serviceName string)
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
 	)
 	if err != nil {
-		logging.Fatalf("failed NewOnlineRpcClient err: %v", err)
+		logger.Fatalf("failed NewOnlineRpcClient err: %v", err)
 	}
 	return pb.NewOnlineServiceClient(conn)
 }

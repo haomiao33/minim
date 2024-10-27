@@ -2,8 +2,8 @@ package rpcclient
 
 import (
 	"context"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"google.golang.org/grpc"
+	"im/internal/logger"
 	"im/pb"
 )
 
@@ -12,7 +12,7 @@ func NewLoginDefaultRpcClient(ctx context.Context, address string, serviceName s
 		grpc.WithInsecure(),
 	)
 	if err != nil {
-		logging.Fatalf("failed NewLoginDefaultRpcClient err: %v", err)
+		logger.Fatalf("failed NewLoginDefaultRpcClient err: %v", err)
 	}
 	return pb.NewLoginServiceClient(conn)
 }

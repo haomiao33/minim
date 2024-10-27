@@ -5,17 +5,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/hashicorp/consul/api"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
 	_ "google.golang.org/grpc/health"
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"im/internal/common"
+	"im/internal/logger"
 	"im/internal/service/online/config"
 	"im/pb"
 	"im/pkg/redisclient"
-	"log"
 	"net"
 	"time"
 )
@@ -84,9 +83,9 @@ func (s *OnlineServer) Run() {
 		cfg.ListenPort)
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
+		logger.Fatalf("Failed to listen: %v", err)
 	}
-	logging.Infof("starting gRPC server on %s", addr)
+	logger.Infof("starting gRPC server on %s", addr)
 	grpcServer := grpc.NewServer()
 	pb.RegisterOnlineServiceServer(grpcServer, s)
 
@@ -95,7 +94,7 @@ func (s *OnlineServer) Run() {
 	consulCfg.Address = config.Config.Consul.Address
 	consulClient, err := api.NewClient(consulCfg)
 	if err != nil {
-		log.Fatalf("failed to create consul client: %v", err)
+		logger.Fatalf("failed to create consul client: %v", err)
 	}
 
 	grpc_health_v1.RegisterHealthServer(grpcServer, health.NewServer())
@@ -118,11 +117,14 @@ func (s *OnlineServer) Run() {
 	// 注册服务到 Consul
 	err = consulClient.Agent().ServiceRegister(registration)
 	if err != nil {
-		log.Fatalf("failed to register service: %v", err)
+		logger.Fatalf("failed to register service: %v", err)
 	}
 
-	log.Println("online gRPC server is running on: ", addr)
+	logger.Infof("online gRPC server is running on: %s", addr)
 	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("Failed to serve: %v", err)
+		logger.Fatalf("Failed to serve: %v", err)
 	}
+
+	grpcServer.GracefulStop()
+	logger.Info(" server exit")
 }

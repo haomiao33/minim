@@ -1,3 +1,9 @@
+
+
+[Log]
+Path = "logs/login.log"
+Level = "debug"
+
 [Websocket]
 ListenHost = "0.0.0.0"
 ListenPort = 3000

@@ -6,6 +6,10 @@ import (
 )
 
 type MsgPushConfig struct {
+	Log struct {
+		Path  string
+		Level string
+	}
 	Consul struct {
 		Address string
 	}
@@ -22,7 +26,7 @@ type MsgPushConfig struct {
 
 var Config *MsgPushConfig
 
-func init() {
+func Init() {
 	viper.SetConfigName("msgpush")      // name of config file (without extension)
 	viper.SetConfigType("toml")         // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath("../config")    // call multiple times to add many search paths

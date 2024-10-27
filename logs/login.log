@@ -1,0 +1,62 @@
+starting gRPC server on haomiao-yx.com:4001
+default logging level is INFO
+gRPC server is running on:haomiao-yx.com:4001 
+Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+2024-10-27T18:14:17.415+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-27T18:14:17.424+0800	logging/logger.go:249	default logging level is INFO
+2024-10-27T18:14:17.424+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-27T18:14:17.424+0800	logging/logger.go:256	Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+2024-10-27T18:14:17.424+0800	ws/ws_server.go:145	echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+2024-10-27T18:14:58.321+0800	ws/ws_server.go:183	conn[127.0.0.1:65439] connected
+2024-10-27T18:14:58.331+0800	ws/ws_server.go:252	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":456}}
+2024-10-27T18:15:31.316+0800	ws/ws_server.go:183	conn[127.0.0.1:65455] connected
+2024-10-27T18:15:31.325+0800	ws/ws_server.go:252	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":456}}
+2024-10-27T18:15:33.107+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:65455, read: EOF
+
+2024-10-27T18:15:33.107+0800	ws/ws_server.go:192	conn[127.0.0.1:65455] disconnected
+2024-10-27T18:15:36.415+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:65439, read: EOF
+
+2024-10-27T18:15:36.415+0800	ws/ws_server.go:192	conn[127.0.0.1:65439] disconnected
+2024-10-27T18:15:38.422+0800	ws/ws_server.go:183	conn[127.0.0.1:65459] connected
+2024-10-27T18:15:38.432+0800	ws/ws_server.go:252	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":456}}
+2024-10-27T18:15:53.099+0800	ws/ws_server.go:183	conn[127.0.0.1:65468] connected
+2024-10-27T18:15:53.109+0800	ws/ws_server.go:252	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-27T18:15:53.357+0800	ws/ws_server.go:301	push to to:456
+2024-10-27T18:15:53.357+0800	ws/ws_server.go:308	push to user:456
+2024-10-27T18:15:57.431+0800	ws/ws_server.go:161	user[456] heartbeat timeout ts:26106
+2024-10-27T18:15:57.434+0800	ws/ws_server.go:161	user[456] heartbeat timeout ts:29095
+2024-10-27T18:20:15.776+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:65468, read: EOF
+
+2024-10-27T18:20:15.777+0800	ws/ws_server.go:192	conn[127.0.0.1:65468] disconnected
+2024-10-27T18:20:17.803+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:65459, read: EOF
+
+2024-10-27T18:20:17.803+0800	ws/ws_server.go:192	conn[127.0.0.1:65459] disconnected
+2024-10-27T18:20:37.480+0800	ws/ws_server.go:161	user[456] heartbeat timeout ts:29003
+2024-10-27T18:20:37.483+0800	ws/ws_server.go:161	user[123] heartbeat timeout ts:24331
+2024-10-27T18:25:14.906+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-27T18:25:14.922+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-27T18:25:14.922+0800	logging/logger.go:249	default logging level is INFO
+2024-10-27T18:25:14.922+0800	logging/logger.go:256	Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+2024-10-27T18:25:14.922+0800	ws/ws_server.go:145	echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+2024-10-27T18:25:32.789+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-27T18:25:32.797+0800	logging/logger.go:249	default logging level is INFO
+2024-10-27T18:25:32.797+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-27T18:25:32.797+0800	logging/logger.go:256	Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+2024-10-27T18:25:32.797+0800	ws/ws_server.go:145	echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+2024-10-27T18:26:16.033+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-27T18:26:16.041+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-27T18:26:16.041+0800	logging/logger.go:249	default logging level is INFO
+2024-10-27T18:26:16.041+0800	logging/logger.go:256	Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+2024-10-27T18:26:16.042+0800	ws/ws_server.go:145	echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+2024-10-27T18:26:24.927+0800	ws/ws_server.go:183	conn[127.0.0.1:49449] connected
+2024-10-27T18:26:24.938+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":456}}
+2024-10-27T18:26:37.188+0800	ws/ws_server.go:183	conn[127.0.0.1:49463] connected
+2024-10-27T18:26:37.198+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-27T18:26:37.332+0800	ws/ws_server.go:302	push to to:456
+2024-10-27T18:26:37.332+0800	ws/ws_server.go:309	push to user:456

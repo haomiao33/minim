@@ -1,0 +1,30 @@
+server start at 0.0.0.0:3100
+starting gRPC server on haomiao-yx.com:4001
+gRPC server is running on:haomiao-yx.com:4001 
+echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+starting gRPC server on haomiao-yx.com:4001
+gRPC server is running on:haomiao-yx.com:4001 
+echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+starting gRPC server on haomiao-yx.com:4001
+default logging level is INFO
+gRPC server is running on:haomiao-yx.com:4001 
+Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+starting gRPC server on haomiao-yx.com:4001
+default logging level is INFO
+gRPC server is running on:haomiao-yx.com:4001 
+Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+conn[127.0.0.1:65121] connected
+COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":456}}
+server start at 0.0.0.0:3100
+2024-10-27T18:14:09.491+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-27T18:15:53.259+0800	msg/msg_handler.go:177	send msg success  msgId:1730024153112-123-456-0-672545,chatType:0, msgType:1, sequence:2
+2024-10-27T18:15:53.272+0800	msg/msg_handler.go:196	add to push mq  success:1730024153112-123-456-0-672545
+2024-10-27T18:26:12.832+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-27T18:26:37.298+0800	msg/msg_handler.go:177	send msg success  msgId:1730024797201-123-456-0-45396,chatType:0, msgType:1, sequence:3
+2024-10-27T18:26:37.305+0800	msg/msg_handler.go:196	add to push mq  success:1730024797201-123-456-0-45396

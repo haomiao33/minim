@@ -3,9 +3,9 @@ package api
 import (
 	"context"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	recover2 "github.com/gofiber/fiber/v2/middleware/recover"
 	_ "google.golang.org/grpc/health"
+	"im/internal/logger"
 	"im/internal/service/api/config"
 	"im/internal/service/api/handler"
 	"im/internal/service/api/middleware"
@@ -36,7 +36,8 @@ func NewApiServer(ctx context.Context) *MsgPushServer {
 }
 
 func (s *MsgPushServer) Run() {
-	log.Infof("server start at %s", config.Config.App.Listener)
-	log.Fatal(s.app.Listen(config.Config.App.Listener))
-	log.Info("Server exit")
+	logger.Infof("server start at %s", config.Config.App.Listener)
+	err := s.app.Listen(config.Config.App.Listener)
+	logger.Errorf("server ret %v", err)
+	logger.Info("Server exit")
 }

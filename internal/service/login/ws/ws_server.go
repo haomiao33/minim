@@ -9,17 +9,16 @@ import (
 	"github.com/google/uuid"
 	"github.com/hashicorp/consul/api"
 	"github.com/panjf2000/gnet/v2"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"im/internal/command"
+	"im/internal/logger"
 	"im/internal/service/login"
 	"im/internal/service/login/config"
 	"im/pb"
 	"im/pkg/rpcclient"
-	"log"
 	"net"
 	"sync"
 	"sync/atomic"
@@ -84,9 +83,9 @@ func (ws *WsServer) Run() {
 		cfg.ListenPort)
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
+		logger.Fatalf("Failed to listen: %v", err)
 	}
-	logging.Infof("starting gRPC server on %s", addr)
+	logger.Infof("starting gRPC server on %s", addr)
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterLoginServiceServer(grpcServer, ws)
@@ -96,7 +95,7 @@ func (ws *WsServer) Run() {
 	consulCfg.Address = config.Config.Consul.Address
 	consulClient, err := api.NewClient(consulCfg)
 	if err != nil {
-		log.Fatalf("failed to create consul client: %v", err)
+		logger.Fatalf("failed to create consul client: %v", err)
 	}
 
 	grpc_health_v1.RegisterHealthServer(grpcServer, health.NewServer())
@@ -119,31 +118,38 @@ func (ws *WsServer) Run() {
 	// 注册服务到 Consul
 	err = consulClient.Agent().ServiceRegister(registration)
 	if err != nil {
-		log.Fatalf("failed to register service: %v", err)
+		logger.Fatalf("failed to register service: %v", err)
 	}
 
 	go func() {
-		log.Println("gRPC server is running on: ", addr)
+		logger.Infof("gRPC server is running on:%s ", addr)
 		if err := grpcServer.Serve(lis); err != nil {
-			log.Fatalf("Failed to serve: %v", err)
+			logger.Fatalf("Failed to serve: %v", err)
 		}
 	}()
 
-	log.Fatal(gnet.Run(ws, ws.addr,
+	gnetLogger := logger.NewGNetLogger()
+	err = gnet.Run(ws, ws.addr,
+		gnet.WithLogger(gnetLogger),
 		gnet.WithMulticore(ws.multicore),
-		gnet.WithReusePort(true)))
+		gnet.WithReusePort(true))
+	if err != nil {
+		logger.Errorf("ws server run ret=%v", err)
+	}
+	grpcServer.GracefulStop()
+	logger.Info("server exit")
 }
 
 func (ws *WsServer) OnBoot(eng gnet.Engine) gnet.Action {
 	ws.eng = eng
-	log.Printf("echo server with multi-core=%t is listening on %s\n",
+	logger.Infof("echo server with multi-core=%t is listening on %s\n",
 		ws.multicore, ws.addr)
 
 	go func() {
 		for {
 			select {
 			case <-ws.ctx.Done():
-				logging.Infof("im heart checker exit!!")
+				logger.Info("im heart checker exit!!")
 				return
 			default:
 				time.Sleep(10 * time.Second)
@@ -152,7 +158,7 @@ func (ws *WsServer) OnBoot(eng gnet.Engine) gnet.Action {
 				ws.users.Range(func(key, value interface{}) bool {
 					onlineUser := value.(*OnlineUser)
 					if now-onlineUser.Ts > HEART_TIME_OUT_MILLI_SECOND {
-						logging.Infof("user[%v] heartbeat timeout ts:%v",
+						logger.Infof("user[%v] heartbeat timeout ts:%v",
 							onlineUser.UserId, now-onlineUser.Ts)
 						onlineUser.Conn.Close()
 						ws.users.Delete(key)
@@ -174,16 +180,16 @@ func (ws *WsServer) OnBoot(eng gnet.Engine) gnet.Action {
 func (wss *WsServer) OnOpen(c gnet.Conn) ([]byte, gnet.Action) {
 	c.SetContext(new(wsCodec))
 	atomic.AddInt64(&wss.connected, 1)
-	logging.Infof("conn[%v] connected", c.RemoteAddr().String())
+	logger.Infof("conn[%v] connected", c.RemoteAddr().String())
 	return nil, gnet.None
 }
 
 func (wss *WsServer) OnClose(c gnet.Conn, err error) (action gnet.Action) {
 	if err != nil {
-		logging.Warnf("error occurred on connection=%s, %v\n", c.RemoteAddr().String(), err)
+		logger.Warnf("error occurred on connection=%s, %v\n", c.RemoteAddr().String(), err)
 	}
 	atomic.AddInt64(&wss.connected, -1)
-	logging.Infof("conn[%v] disconnected", c.RemoteAddr().String())
+	logger.Infof("conn[%v] disconnected", c.RemoteAddr().String())
 
 	//查询用户
 	user, ok := wss.users.Load(c.RemoteAddr().String())
@@ -192,6 +198,7 @@ func (wss *WsServer) OnClose(c gnet.Conn, err error) (action gnet.Action) {
 		wss.onlineRpcClient.OutlineUser(wss.ctx, &pb.GetOnlineUserRequest{
 			UserId: user.(*OnlineUser).UserId,
 		})
+		wss.users.Delete(c.RemoteAddr().String())
 	}
 
 	return gnet.None
@@ -222,7 +229,7 @@ func (wss *WsServer) OnTraffic(c gnet.Conn) (action gnet.Action) {
 		var cmd command.ImCommandReq
 		err := json.Unmarshal(message.Payload, &cmd)
 		if err != nil {
-			logging.Errorf("conn[%v] [err=%v] [params=%s]",
+			logger.Errorf("conn[%v] [err=%v] [params=%s]",
 				c.RemoteAddr().String(), err.Error(), payloadStr)
 			return gnet.Close
 		}
@@ -243,22 +250,15 @@ func (wss *WsServer) OnTraffic(c gnet.Conn) (action gnet.Action) {
 			}
 			return gnet.None
 		case command.COMMAND_TYPE_LOGIN_REQ:
-			logging.Infof("COMMAND_TYPE_LOGIN:%s", payloadStr)
+			logger.Infof("COMMAND_TYPE_LOGIN:%s", payloadStr)
 			//用户登陆
 			body, _ := json.Marshal(cmd.Data)
 			return wss.OnLogin(c, body)
 		default:
-			logging.Errorf("conn[%v] [err=%v] [params=%s]",
+			logger.Errorf("conn[%v] [err=%v] [params=%s]",
 				c.RemoteAddr().String(), "unknown command", payloadStr)
 			return gnet.Close
 		}
-
-		//// This is the echo server
-		//err = wsutil.WriteServerMessage(c, message.OpCode, message.Payload)
-		//if err != nil {
-		//	logging.Infof("conn[%v] [err=%v]", c.RemoteAddr().String(), err.Error())
-		//	return gnet.Close
-		//}
 	}
 	return gnet.None
 }
@@ -268,7 +268,7 @@ func (wss *WsServer) OnLogin(c gnet.Conn, body []byte) gnet.Action {
 	var loginCmd command.ImLoginCommandReq
 	err := json.Unmarshal(body, &loginCmd)
 	if err != nil {
-		logging.Errorf("command.ImLoginCommandReq parse err,%v", err)
+		logger.Errorf("command.ImLoginCommandReq parse err,%v", err)
 		return gnet.Close
 	}
 
@@ -299,14 +299,14 @@ func (wss *WsServer) OnLogin(c gnet.Conn, body []byte) gnet.Action {
 
 // 推送消息给客户端
 func (wss *WsServer) PushMsg(ctx context.Context, req *pb.PushRequest) (*emptypb.Empty, error) {
-	logging.Infof("push to to:%d", req.UserId)
+	logger.Infof("push to to:%d", req.UserId)
 	var err error
 	var once sync.Once
 	wss.users.Range(func(key, value interface{}) bool {
 		user := value.(*OnlineUser)
 		if user.UserId == req.UserId {
 			once.Do(func() {
-				logging.Infof("push to user:%d", user.UserId)
+				logger.Infof("push to user:%d", user.UserId)
 				err = wsutil.WriteServerMessage(user.Conn, ws.OpText, []byte(req.Data))
 			})
 			return false

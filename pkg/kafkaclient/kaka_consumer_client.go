@@ -2,10 +2,8 @@ package kafkaclient
 
 import (
 	"context"
-	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
-	"log"
+	"im/internal/logger"
 )
 
 type KafkaConsumerClient struct {
@@ -23,7 +21,7 @@ func NewKafkaConsumerClient(ctx context.Context, address string, groupId string)
 		"session.timeout.ms":       6000,
 	})
 	if err != nil {
-		log.Fatal("failed to dial leader:", err)
+		logger.Fatalf("failed to dial leader:%v", err)
 	}
 
 	return &KafkaConsumerClient{
@@ -37,19 +35,19 @@ func (k *KafkaConsumerClient) StartConsume(topics []string, callBack func(data [
 
 	err := k.client.SubscribeTopics(topics, nil)
 	if err != nil {
-		logging.Errorf("consumer subscribe failed: %v", err)
+		logger.Errorf("consumer subscribe failed: %v", err)
 		return err
 	}
 	return k.run()
 }
 
 func (k *KafkaConsumerClient) run() error {
-	logging.Infof("kafka client run")
+	logger.Infof("kafka client run")
 
 	for {
 		select {
 		case <-k.ctx.Done():
-			logging.Infof("kafka client exit")
+			logger.Infof("kafka client exit")
 			return nil
 		default:
 			ev := k.client.Poll(100)
@@ -59,15 +57,15 @@ func (k *KafkaConsumerClient) run() error {
 			switch e := ev.(type) {
 			case *kafka.Message:
 				if e.Headers != nil {
-					fmt.Printf("%% Headers: %v\n", e.Headers)
+
 				}
 				err := k.callBack(e.Value)
 				if err != nil {
-					logging.Errorf("call back ret error:%v", err)
+					logger.Errorf("call back ret error:%v", err)
 				}
 				_, err = k.client.StoreMessage(e)
 				if err != nil {
-					logging.Errorf("--- Error storing offset after message %s:\n, err:%v",
+					logger.Errorf("--- Error storing offset after message %s:\n, err:%v",
 						e.TopicPartition, err)
 				}
 				break
@@ -77,7 +75,7 @@ func (k *KafkaConsumerClient) run() error {
 				// automatically recover.
 				// But in this example we choose to terminate
 				// the application if all brokers are down.
-				logging.Errorf("%% Error: %v: %v\n", e.Code(), e)
+				logger.Errorf("%% Error: %v: %v\n", e.Code(), e)
 			default:
 			}
 		}

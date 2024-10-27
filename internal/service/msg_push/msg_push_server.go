@@ -5,15 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/hashicorp/consul/api"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
 	_ "google.golang.org/grpc/health"
 	"im/internal/command"
+	"im/internal/logger"
 	"im/internal/model"
 	"im/internal/service/msg_push/config"
 	"im/pb"
 	"im/pkg/kafkaclient"
 	"im/pkg/rpcclient"
-	"log"
 	"sync"
 	"time"
 )
@@ -35,7 +34,7 @@ func NewMsgPushServer(ctx context.Context) *MsgPushServer {
 	consulCfg.Address = config.Config.Consul.Address
 	consulClient, err := api.NewClient(consulCfg)
 	if err != nil {
-		log.Fatalf("failed to create consul client: %v", err)
+		logger.Fatalf("failed to create consul client: %v", err)
 	}
 
 	return &MsgPushServer{
@@ -78,7 +77,7 @@ func (s *MsgPushServer) pushMessageToOnlineUser(msg model.ImMsg, serviceId strin
 		// 没有连接，获取服务地址
 		address, err := s.getLoginServiceAddresses("LoginService", serviceId) // 替换为你的服务名称
 		if err != nil {
-			logging.Errorf("failed to get login service addresses: %s", err.Error())
+			logger.Errorf("failed to get login service addresses: %s", err.Error())
 			return err
 		}
 		///这里用直连的grpc 客户端，不用consul
@@ -112,7 +111,7 @@ func (s *MsgPushServer) pushMessageToOnlineUser(msg model.ImMsg, serviceId strin
 		Data:   string(marshal),
 	})
 	if err != nil {
-		logging.Errorf("failed to push online message:%s to %s: %v",
+		logger.Errorf("failed to push online message:%s to %s: %v",
 			msg.ID, msg.ToID, err)
 		return err
 	}
@@ -123,30 +122,30 @@ func (s *MsgPushServer) OnPushMsg(ctx context.Context, data []byte) error {
 	var msg model.ImMsg
 	err := json.Unmarshal(data, &msg)
 	if err != nil {
-		logging.Errorf("--- json unmarshal failed:%s, data:%s ---", err, string(data))
+		logger.Errorf("--- json unmarshal failed:%s, data:%s ---", err, string(data))
 		return err
 	}
-	logging.Infof("start push msg : msgId:%s, chatType:%d, "+
+	logger.Infof("start push msg : msgId:%s, chatType:%d, "+
 		"msgType:%d, conversationId:%d, sequence:%d",
 		msg.ID, msg.ChatType, msg.MsgType, msg.ConversationID, msg.Sequence)
 
 	resp, err := s.onlineRpc.GetOnlineUser(ctx, &pb.GetOnlineUserRequest{UserId: msg.ToID})
 	if err != nil {
-		logging.Infof("user is outline,  toId:%d, msgId:%s", msg.ToID, msg.ID)
+		logger.Infof("user is outline,  toId:%d, msgId:%s", msg.ToID, msg.ID)
 		//todo 离线推送
 
 		return nil
 	}
 
-	logging.Infof("user:%d is online, start push msg:%s", msg.ToID, msg.ID)
+	logger.Infof("user:%d is online, start push msg:%s", msg.ToID, msg.ID)
 	err = s.pushMessageToOnlineUser(msg, resp.ServerId)
 	if err != nil {
-		logging.Infof("user:%d is outline, msgId:%s", msg.ToID, msg.ID)
+		logger.Infof("user:%d is outline, msgId:%s", msg.ToID, msg.ID)
 		//todo 离线推送
 
 		return nil
 	}
-	logging.Infof("end push online message:%s to %d",
+	logger.Infof("end push online message:%s to %d",
 		msg.ID, msg.ToID)
 
 	return nil
@@ -163,7 +162,7 @@ func (s *MsgPushServer) Run() error {
 				})
 			if err != nil {
 				//清空
-				logging.Errorf("consul service connect error")
+				logger.Errorf("consul service connect error")
 				time.Sleep(2 * time.Second)
 				continue
 			}
@@ -176,7 +175,7 @@ func (s *MsgPushServer) Run() error {
 				}
 				// 移除已下线的服务
 				s.loginServiceMap.Delete(key)
-				logging.Infof("service instance %s is offline", key.(string))
+				logger.Infof("service instance %s is offline", key.(string))
 				return true
 			})
 			time.Sleep(5 * time.Second) // 适当的重试间隔

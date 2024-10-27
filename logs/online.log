@@ -1,0 +1,14 @@
+starting gRPC server on haomiao-yx.com:4004
+online gRPC server is running on: haomiao-yx.com:4004
+2024-10-27T18:05:02.361+0800	logger/logger.go:67	starting gRPC server on haomiao-yx.com:4004
+2024-10-27T18:05:02.370+0800	logger/logger.go:67	online gRPC server is running on: haomiao-yx.com:4004
+starting gRPC server on haomiao-yx.com:4004
+online gRPC server is running on: haomiao-yx.com:4004
+2024-10-27T18:13:45.815+0800	online/online_server.go:88	starting gRPC server on haomiao-yx.com:4004
+2024-10-27T18:13:45.821+0800	online/online_server.go:123	online gRPC server is running on: haomiao-yx.com:4004
+2024-10-27T18:14:35.551+0800	online/online_server.go:88	starting gRPC server on haomiao-yx.com:4004
+2024-10-27T18:14:35.558+0800	online/online_server.go:123	online gRPC server is running on: haomiao-yx.com:4004
+2024-10-27T18:25:17.700+0800	online/online_server.go:88	starting gRPC server on haomiao-yx.com:4004
+2024-10-27T18:25:17.706+0800	online/online_server.go:123	online gRPC server is running on: haomiao-yx.com:4004
+2024-10-27T18:25:58.768+0800	online/online_server.go:88	starting gRPC server on haomiao-yx.com:4004
+2024-10-27T18:25:58.773+0800	online/online_server.go:123	online gRPC server is running on: haomiao-yx.com:4004

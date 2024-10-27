@@ -5,8 +5,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"log"
-	"os"
+	logger2 "im/internal/logger"
 	"time"
 )
 
@@ -21,8 +20,9 @@ func Init(user string, password string, host string, port int, database string) 
 		port,
 		database)
 
+	myLogger := logger2.NewGormLogger()
 	newLogger := logger.New(
-		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		myLogger, // io writer
 		logger.Config{
 			SlowThreshold:             time.Second,  // Slow SQL threshold
 			LogLevel:                  logger.Error, // Log level
@@ -35,12 +35,12 @@ func Init(user string, password string, host string, port int, database string) 
 		Logger: newLogger,
 	})
 	if err != nil {
-		log.Fatal("failed to connect database")
+		logger2.Fatal("failed to connect database")
 	}
 	// 设置数据库连接池空闲连接数
 	dbInstance, err := db.DB()
 	if err != nil {
-		log.Fatal("failed to open database")
+		logger2.Fatal("failed to open database")
 	}
 	// 打开连接
 	dbInstance.SetMaxIdleConns(2)

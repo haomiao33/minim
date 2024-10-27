@@ -5,9 +5,13 @@ import (
 	"github.com/spf13/viper"
 )
 
-type MsgPushConfig struct {
+type OnlineConfig struct {
 	Consul struct {
 		Address string
+	}
+	Log struct {
+		Path  string
+		Level string
 	}
 	Rpc struct {
 		ListenHost string
@@ -27,10 +31,10 @@ type MsgPushConfig struct {
 	}
 }
 
-var Config *MsgPushConfig
+var Config *OnlineConfig
 
-func init() {
-	viper.SetConfigName("msgpush")      // name of config file (without extension)
+func Init() {
+	viper.SetConfigName("online")       // name of config file (without extension)
 	viper.SetConfigType("toml")         // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath("../config")    // call multiple times to add many search paths
 	viper.AddConfigPath("../../config") // call multiple times to add many search paths

@@ -3,11 +3,10 @@ package ws
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"github.com/gobwas/ws"
 	"github.com/gobwas/ws/wsutil"
 	"github.com/panjf2000/gnet/v2"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
+	"im/internal/logger"
 	"io"
 )
 
@@ -44,7 +43,7 @@ func (w *wsCodec) upgrade(c gnet.Conn) (ok bool, action gnet.Action) {
 			return
 		}
 		buf.Next(skipN)
-		logging.Errorf("conn[%v] [err=%v]", c.RemoteAddr().String(), err.Error())
+		logger.Errorf("conn[%v] [err=%v]", c.RemoteAddr().String(), err.Error())
 		action = gnet.Close
 		return
 	}
@@ -60,11 +59,11 @@ func (w *wsCodec) readBufferBytes(c gnet.Conn) gnet.Action {
 	buf := make([]byte, size)
 	read, err := c.Read(buf)
 	if err != nil {
-		logging.Errorf("read err! %v", err)
+		logger.Errorf("read err! %v", err)
 		return gnet.Close
 	}
 	if read < size {
-		logging.Errorf("read bytes len err! size: %d read: %d", size, read)
+		logger.Errorf("read bytes len err! size: %d read: %d", size, read)
 		return gnet.Close
 	}
 	w.buf.Write(buf)
@@ -74,7 +73,7 @@ func (w *wsCodec) Decode(c gnet.Conn) (outs []wsutil.Message, err error) {
 	//fmt.Println("do Decode")
 	messages, err := w.readWsMessages()
 	if err != nil {
-		logging.Errorf("Error reading message! %v", err)
+		logger.Errorf("Error reading message! %v", err)
 		return nil, err
 	}
 	if messages == nil || len(messages) <= 0 { //没有读到完整数据 不处理
@@ -135,8 +134,7 @@ func (w *wsCodec) readWsMessages() (messages []wsutil.Message, err error) {
 		// 从 in 中读出 data，并将 data bytes 写入 msgBuf.cachedBuf
 		if dataLen > 0 {
 			if in.Len() < dataLen { //数据不完整
-				fmt.Println(in.Len(), dataLen)
-				logging.Infof("incomplete data")
+				logger.Infof("incomplete data")
 				return
 			}
 
@@ -152,7 +150,7 @@ func (w *wsCodec) readWsMessages() (messages []wsutil.Message, err error) {
 			}
 			msgBuf.cachedBuf.Reset()
 		} else {
-			logging.Infof("The data is split into multiple frames")
+			logger.Infof("The data is split into multiple frames")
 		}
 		msgBuf.curHeader = nil
 	}

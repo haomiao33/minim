@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
-	"github.com/panjf2000/gnet/v2/pkg/logging"
+	"im/internal/logger"
 	"time"
 )
 
@@ -21,7 +21,7 @@ func NewKafkaProductClient(ctx context.Context,
 		//"security.protocol": "SSL",
 	})
 	if err != nil {
-		logging.Fatalf("Failed to create producer: %s\n", err)
+		logger.Fatalf("Failed to create producer: %s\n", err)
 	}
 
 	return &KafkaProductClient{
@@ -42,16 +42,16 @@ func (k *KafkaProductClient) ProductMessage(topic string, partition int32, data 
 			if err.(kafka.Error).Code() == kafka.ErrQueueFull {
 				// Producer queue is full, wait 1s for messages
 				// to be delivered then try again.
-				logging.Warnf("send message queue is full, retry :%d", i)
+				logger.Warnf("send message queue is full, retry :%d", i)
 				time.Sleep(time.Second)
 				i++
 				continue
 			}
-			logging.Errorf("Failed to produce message: %v\n, data:%s", err, string(data))
+			logger.Errorf("Failed to produce message: %v\n, data:%s", err, string(data))
 			return err
 		}
 		return nil
 	}
-	logging.Errorf("send to kafka max try error， data:%s", string(data))
+	logger.Errorf("send to kafka max try error， data:%s", string(data))
 	return errors.New("send to kafka max try error")
 }
