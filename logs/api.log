@@ -37,3 +37,4 @@ server start at 0.0.0.0:3100
 [0m[33m[2.892ms] [34;1m[rows:0][0m SELECT a.*,b.sequence FROM im_recent_session a left join im_conversation b on a.conversation_id = b.id WHERE a.user_id = ? AND a.type = ? AND a.deleted_time IS NULL ORDER BY a.updated_time DESC,a.sequence desc
 2024-10-27T19:06:49.465+0800	api/api_server.go:39	server start at 0.0.0.0:3100
 2024-10-27T19:17:44.105+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-27T19:23:03.000+0800	api/api_server.go:39	server start at 0.0.0.0:3100
