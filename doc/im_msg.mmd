@@ -11,9 +11,9 @@ sequenceDiagram
     ServerApi->>ServerApi: 查看是否有A和B会话没有就创建；创建a和b的session；存放消息
     ServerApi->>kafka: 2、消息进入kafka（topic:im-msg-push）
     ServerApi->>A: 3、返回发送成功（http）
-    kafka->>ServerMsgPush: 5、收到推送通知，准备推送给用户B
+    kafka->>ServerMsgPush: 4、收到推送通知，准备推送给用户B
     ServerMsgPush->>ServerOnline: 查询B是否在线(rpc)
-    ServerMsgPush->>ServerLogin: 6、推送消息msgSyncNotify给B(rpc)
-    ServerLogin->>B: 7、收到msgSyncNotify(websocket)
-    B->>ServerApi: 8、同步消息(http)
-    ServerApi->>B: 9、同步消息成功
+    ServerMsgPush->>ServerLogin: 5、推送消息msgSyncNotify给B(rpc)
+    ServerLogin->>B: 6、收到msgSyncNotify(websocket)
+    B->>ServerApi: 7、同步消息(http)
+    ServerApi->>B: 8、同步消息成功
