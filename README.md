@@ -34,7 +34,7 @@
 ## 3、单聊消息：流程图
 
 ### 3.1、单聊流程图
-<img width="1059" alt="image" src="https://github.com/user-attachments/assets/779dc2eb-b814-4131-99c2-935e81601fbf">
+<img width="1086" alt="image" src="https://github.com/user-attachments/assets/7233dda4-79d2-4357-8239-85d687a92334">
 
 
 
