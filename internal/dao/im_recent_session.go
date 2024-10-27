@@ -6,6 +6,7 @@ import (
 	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"gorm.io/gorm"
 	"im/internal/model"
+	"im/internal/service/api/resp"
 	"time"
 )
 
@@ -66,6 +67,40 @@ func (s *ImRecentSessionDao) Update(tx *gorm.DB, chatType int32, userId int64, o
 	if ret.Error != nil {
 		logging.Errorf("--- update recent session failed:%v %d %d---",
 			chatType, userId, otherId)
+		return ret.Error
+	}
+	return nil
+}
+
+// 获取某个用户的会话列表
+func (s *ImRecentSessionDao) GetConversationList(tx *gorm.DB,
+	userId int64, chatType int32) ([]resp.ImUserRecentSessionResp, error) {
+	items := make([]resp.ImUserRecentSessionResp, 0)
+	ret := tx.Table("im_recent_session a").
+		Joins("left join im_conversation b on a.conversation_id = b.id").
+		Select("a.*,b.sequence").
+		Where("a.user_id = ?", userId).
+		Where("a.type = ?", chatType).
+		Where("a.deleted_time IS NULL").
+		Order("a.updated_time DESC,b.sequence desc").
+		Find(&items)
+	if ret.Error != nil {
+		logging.Errorf("--- GetConversationList conversation failed:%d, ---", userId)
+		return items, nil
+	}
+	return items, nil
+}
+
+// 删除会话
+func (s *ImRecentSessionDao) DelConversation(tx *gorm.DB,
+	conversationId int64, userId int64) error {
+	ret := tx.Table("im_recent_session").
+		Where("conversation_id = ? and user_id = ?", conversationId, userId).
+		Updates(map[string]interface{}{
+			"deleted_time": time.Now(),
+		})
+	if ret.Error != nil {
+		logging.Errorf("--- DelConversation conversation failed:%d, ---", userId)
 		return ret.Error
 	}
 	return nil

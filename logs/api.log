@@ -28,3 +28,12 @@ server start at 0.0.0.0:3100
 2024-10-27T18:26:12.832+0800	api/api_server.go:39	server start at 0.0.0.0:3100
 2024-10-27T18:26:37.298+0800	msg/msg_handler.go:177	send msg success  msgId:1730024797201-123-456-0-45396,chatType:0, msgType:1, sequence:3
 2024-10-27T18:26:37.305+0800	msg/msg_handler.go:196	add to push mq  success:1730024797201-123-456-0-45396
+2024-10-27T18:55:37.089+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-27T18:59:51.517+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-27T18:59:51.564+0800	logger/logger.go:167	[31;1m/Users/yx/development/project/xiaogongqiu/im/internal/dao/im_recent_session.go:84 [35;1mError 1054 (42S22): Unknown column 'sequence' in 'where clause'
+[0m[33m[6.098ms] [34;1m[rows:0][0m SELECT * FROM `im_recent_session` WHERE user_id = ? AND sequence > ? AND type = ? AND deleted_time IS NULL ORDER BY updated_time DESC,sequence desc
+2024-10-27T19:06:30.220+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-27T19:06:32.962+0800	logger/logger.go:167	[31;1m/Users/yx/development/project/xiaogongqiu/im/internal/dao/im_recent_session.go:85 [35;1mError 1054 (42S22): Unknown column 'a.sequence' in 'order clause'
+[0m[33m[2.892ms] [34;1m[rows:0][0m SELECT a.*,b.sequence FROM im_recent_session a left join im_conversation b on a.conversation_id = b.id WHERE a.user_id = ? AND a.type = ? AND a.deleted_time IS NULL ORDER BY a.updated_time DESC,a.sequence desc
+2024-10-27T19:06:49.465+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-27T19:17:44.105+0800	api/api_server.go:39	server start at 0.0.0.0:3100

@@ -17,25 +17,18 @@ import (
 	"time"
 )
 
-type MsgHandler interface {
-	//单聊消息发送
-	SendMsg(c *fiber.Ctx) error
-	//单聊消息同步
-	SyncMsg(c *fiber.Ctx) error
+type MsgHandler struct {
 }
 
-type msgHandlerImpl struct {
-}
-
-func NewMsgHandler(router fiber.Router) MsgHandler {
-	handler := &msgHandlerImpl{}
+func NewMsgHandler(router fiber.Router) *MsgHandler {
+	handler := &MsgHandler{}
 	router.Post("/msg/send", handler.SendMsg)
 	router.Post("/msg/sync", handler.SyncMsg)
 	return handler
 }
 
 // 单聊消息发送
-func (u *msgHandlerImpl) SendMsg(c *fiber.Ctx) error {
+func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 	var msg req.ImMsgCommandReq
 	if err := c.BodyParser(&msg); err != nil {
 		return errors.New("参数错误")
@@ -206,7 +199,7 @@ func (u *msgHandlerImpl) SendMsg(c *fiber.Ctx) error {
 }
 
 // 消息同步
-func (u *msgHandlerImpl) SyncMsg(c *fiber.Ctx) error {
+func (u *MsgHandler) SyncMsg(c *fiber.Ctx) error {
 	var req req.ImMsgSyncCommandReq
 	if err := c.BodyParser(&req); err != nil {
 		return errors.New("参数错误")
