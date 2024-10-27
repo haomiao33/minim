@@ -3,7 +3,7 @@
 ## 1、说明：
 
 ### 1.1、项目介绍：
-  简单的go写的im服务，流程简单清晰,大部分接口使用的是http，方便流程控制。login服务目前只是用来做服务端推送消息通知到客户端。本采用golang编写，分为login、api、msg-push、online等服务，这些服务都能集群部署和多个实例扩展。用户可以扩充其他协议和服务。
+  简单的go写的im服务，流程简单清晰,大部分接口使用的是http，方便流程控制。login服务目前只是用来做服务端推送消息通知到客户端。本项目采用golang编写，分为login、api、msg-push、online等服务，这些服务都能集群部署和多个实例扩展。用户可以扩充其他协议和服务。
     
   作者：目前打算golang编写im，支持单聊、群聊、推送； 然后客户端目前只打算做个flutter im chat 版本的就行。方便大家集成。
 
@@ -34,7 +34,7 @@
 ## 3、单聊消息：流程图
 
 ### 3.1、单聊流程图
-<img width="1059" alt="image" src="https://github.com/user-attachments/assets/779dc2eb-b814-4131-99c2-935e81601fbf">
+<img width="1086" alt="image" src="https://github.com/user-attachments/assets/7233dda4-79d2-4357-8239-85d687a92334">
 
 
 
