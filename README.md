@@ -29,13 +29,15 @@
 查看 [部署方法](doc/部署.md) 文件
 
 ## 2、登陆
-![image](https://github.com/user-attachments/assets/4a7c0987-ed71-4184-bcc8-4ce929dcb0a0)
+<img width="740" alt="image" src="https://github.com/user-attachments/assets/bd8024fa-f838-43ac-b4be-ee0066ed5a5e">
+
 
 
 ## 3、单聊消息：流程图
 
 ### 3.1、单聊流程图
-![image](https://github.com/user-attachments/assets/d4173c67-8d8b-444b-beb6-aee0380bc95d)
+<img width="1059" alt="image" src="https://github.com/user-attachments/assets/779dc2eb-b814-4131-99c2-935e81601fbf">
+
 
 
 
