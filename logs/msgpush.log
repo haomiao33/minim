@@ -8,3 +8,52 @@ kafka client run
 2024-10-27T18:26:37.316+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730024797201-123-456-0-45396, chatType:0, msgType:1, conversationId:13094, sequence:3
 2024-10-27T18:26:37.324+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730024797201-123-456-0-45396
 2024-10-27T18:26:37.332+0800	msg_push/msg_push_server.go:148	end push online message:1730024797201-123-456-0-45396 to 456
+2024-10-28T10:33:42.039+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730082821336-123-456-0-425254, chatType:0, msgType:1, conversationId:13094, sequence:4
+2024-10-28T10:33:42.082+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730082821336-123-456-0-425254
+2024-10-28T10:33:42.087+0800	msg_push/msg_push_server.go:148	end push online message:1730082821336-123-456-0-425254 to 456
+2024-10-28T10:37:16.084+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730083035958-123-456-0-42708, chatType:0, msgType:1, conversationId:13094, sequence:5
+2024-10-28T10:37:16.093+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730083035958-123-456-0-42708
+2024-10-28T10:37:16.096+0800	msg_push/msg_push_server.go:148	end push online message:1730083035958-123-456-0-42708 to 456
+2024-10-28T11:31:08.974+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730086268666-123-456-0-969633, chatType:0, msgType:1, conversationId:13094, sequence:6
+2024-10-28T11:31:09.008+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730086268666-123-456-0-969633
+2024-10-28T11:31:09.012+0800	msg_push/msg_push_server.go:148	end push online message:1730086268666-123-456-0-969633 to 456
+2024-10-28T11:39:27.354+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730086767222-123-456-0-649649, chatType:0, msgType:1, conversationId:13094, sequence:7
+2024-10-28T11:39:27.361+0800	msg_push/msg_push_server.go:134	user is outline,  toId:456, msgId:1730086767222-123-456-0-649649
+2024-10-28T11:42:33.129+0800	msg_push/msg_push_server.go:178	service instance LoginService-e5c8831e-944d-11ef-93e4-acde48001122 is offline
+2024-10-28T11:43:19.863+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730086999755-123-456-0-443854, chatType:0, msgType:1, conversationId:13094, sequence:8
+2024-10-28T11:43:19.866+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730086999755-123-456-0-443854
+2024-10-28T11:43:19.882+0800	msg_push/msg_push_server.go:148	end push online message:1730086999755-123-456-0-443854 to 456
+2024-10-28T11:44:48.206+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730087088086-123-456-0-21861, chatType:0, msgType:1, conversationId:13094, sequence:9
+2024-10-28T11:44:48.225+0800	msg_push/msg_push_server.go:140	user:456 is online, start push msg:1730087088086-123-456-0-21861
+2024-10-28T11:44:48.227+0800	msg_push/msg_push_server.go:148	end push online message:1730087088086-123-456-0-21861 to 456
+2024-10-28T14:58:52.695+0800	msg_push/msg_push_server.go:128	start push msg : msgId:2134012-100-123-abc123, chatType:3, msgType:3, conversationId:13095, sequence:1
+2024-10-28T14:58:52.784+0800	msg_push/msg_push_server.go:134	user is outline,  toId:64, msgId:2134012-100-123-abc123
+2024-10-28T16:55:34.997+0800	kafkaclient/kaka_consumer_client.go:78	% Error: Local: Timed out: GroupCoordinator: 127.0.0.1:9092: 1 request(s) timed out: disconnect (after 80969950ms in state UP)
+
+2024-10-28T21:02:03.795+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730120522795-123-456-0-668588, chatType:0, msgType:1, conversationId:13096, sequence:1
+2024-10-28T21:02:03.896+0800	msg_push/msg_push_server.go:134	user is outline,  toId:64, msgId:1730120522795-123-456-0-668588
+2024-10-28T21:04:08.906+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730120648813-123-456-0-197192, chatType:0, msgType:1, conversationId:13096, sequence:2
+2024-10-28T21:04:08.915+0800	msg_push/msg_push_server.go:140	user:64 is online, start push msg:1730120648813-123-456-0-197192
+2024-10-28T21:04:08.952+0800	msg_push/msg_push_server.go:148	end push online message:1730120648813-123-456-0-197192 to 64
+2024-10-28T21:06:15.011+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730120774935-123-456-0-340237, chatType:0, msgType:1, conversationId:13096, sequence:3
+2024-10-28T21:06:15.014+0800	msg_push/msg_push_server.go:140	user:64 is online, start push msg:1730120774935-123-456-0-340237
+2024-10-28T21:06:15.015+0800	msg_push/msg_push_server.go:148	end push online message:1730120774935-123-456-0-340237 to 64
+2024-10-28T21:10:34.102+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730121033827-35-64-0-820042, chatType:0, msgType:1, conversationId:13097, sequence:1
+2024-10-28T21:10:34.110+0800	msg_push/msg_push_server.go:134	user is outline,  toId:64, msgId:1730121033827-35-64-0-820042
+2024-10-28T21:12:29.028+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730121148940-35-64-0-39894, chatType:0, msgType:1, conversationId:13097, sequence:2
+2024-10-28T21:12:29.032+0800	msg_push/msg_push_server.go:140	user:64 is online, start push msg:1730121148940-35-64-0-39894
+2024-10-28T21:12:29.040+0800	msg_push/msg_push_server.go:148	end push online message:1730121148940-35-64-0-39894 to 64
+2024-10-28T21:13:19.619+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730121199537-35-64-0-619550, chatType:0, msgType:1, conversationId:13097, sequence:3
+2024-10-28T21:13:19.620+0800	msg_push/msg_push_server.go:140	user:64 is online, start push msg:1730121199537-35-64-0-619550
+2024-10-28T21:13:19.621+0800	msg_push/msg_push_server.go:148	end push online message:1730121199537-35-64-0-619550 to 64
+2024-10-28T21:32:51.334+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730122371114-35-64-0-268179, chatType:0, msgType:1, conversationId:13097, sequence:4
+2024-10-28T21:32:51.347+0800	msg_push/msg_push_server.go:140	user:64 is online, start push msg:1730122371114-35-64-0-268179
+2024-10-28T21:32:51.351+0800	msg_push/msg_push_server.go:148	end push online message:1730122371114-35-64-0-268179 to 64
+2024-10-28T21:33:33.789+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730122413713-35-64-0-207320, chatType:0, msgType:1, conversationId:13097, sequence:5
+2024-10-28T21:33:33.793+0800	msg_push/msg_push_server.go:134	user is outline,  toId:64, msgId:1730122413713-35-64-0-207320
+2024-10-28T21:34:10.814+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730122450738-35-64-0-701506, chatType:0, msgType:1, conversationId:13097, sequence:6
+2024-10-28T21:34:10.817+0800	msg_push/msg_push_server.go:140	user:64 is online, start push msg:1730122450738-35-64-0-701506
+2024-10-28T21:34:10.818+0800	msg_push/msg_push_server.go:148	end push online message:1730122450738-35-64-0-701506 to 64
+2024-10-28T22:10:15.929+0800	msg_push/msg_push_server.go:128	start push msg : msgId:1730124615590-35-64-0-294940, chatType:0, msgType:1, conversationId:13097, sequence:7
+2024-10-28T22:10:15.972+0800	msg_push/msg_push_server.go:140	user:64 is online, start push msg:1730124615590-35-64-0-294940
+2024-10-28T22:10:15.978+0800	msg_push/msg_push_server.go:148	end push online message:1730124615590-35-64-0-294940 to 64

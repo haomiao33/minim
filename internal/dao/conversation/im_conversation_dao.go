@@ -1,4 +1,4 @@
-package dao
+package conversation
 
 import (
 	"errors"

@@ -38,3 +38,41 @@ server start at 0.0.0.0:3100
 2024-10-27T19:06:49.465+0800	api/api_server.go:39	server start at 0.0.0.0:3100
 2024-10-27T19:17:44.105+0800	api/api_server.go:39	server start at 0.0.0.0:3100
 2024-10-27T19:23:03.000+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-28T10:33:41.737+0800	msg/msg_handler.go:170	send msg success  msgId:1730082821336-123-456-0-425254,chatType:0, msgType:1, sequence:4
+2024-10-28T10:33:41.757+0800	msg/msg_handler.go:189	add to push mq  success:1730082821336-123-456-0-425254
+2024-10-28T10:37:16.039+0800	msg/msg_handler.go:170	send msg success  msgId:1730083035958-123-456-0-42708,chatType:0, msgType:1, sequence:5
+2024-10-28T10:37:16.048+0800	msg/msg_handler.go:189	add to push mq  success:1730083035958-123-456-0-42708
+2024-10-28T11:30:52.677+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-28T11:31:08.832+0800	msg/msg_handler.go:171	send msg success  msgId:1730086268666-123-456-0-969633,chatType:0, msgType:1, sequence:6
+2024-10-28T11:31:08.851+0800	msg/msg_handler.go:190	add to push mq  success:1730086268666-123-456-0-969633
+2024-10-28T11:39:05.196+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-28T11:39:27.288+0800	msg/msg_handler.go:171	send msg success  msgId:1730086767222-123-456-0-649649,chatType:0, msgType:1, sequence:7
+2024-10-28T11:39:27.304+0800	msg/msg_handler.go:190	add to push mq  success:1730086767222-123-456-0-649649
+2024-10-28T11:42:46.033+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-28T11:43:19.822+0800	msg/msg_handler.go:171	send msg success  msgId:1730086999755-123-456-0-443854,chatType:0, msgType:1, sequence:8
+2024-10-28T11:43:19.827+0800	msg/msg_handler.go:190	add to push mq  success:1730086999755-123-456-0-443854
+2024-10-28T11:44:39.756+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-28T11:44:48.185+0800	msg/msg_handler.go:171	send msg success  msgId:1730087088086-123-456-0-21861,chatType:0, msgType:1, sequence:9
+2024-10-28T11:44:48.189+0800	msg/msg_handler.go:190	add to push mq  success:1730087088086-123-456-0-21861
+2024-10-28T14:58:52.275+0800	msg/msg_handler.go:171	send msg success  msgId:2134012-100-123-abc123,chatType:3, msgType:3, sequence:1
+2024-10-28T14:58:52.285+0800	msg/msg_handler.go:190	add to push mq  success:2134012-100-123-abc123
+2024-10-28T21:02:03.162+0800	msg/msg_handler.go:171	send msg success  msgId:1730120522795-123-456-0-668588,chatType:0, msgType:1, sequence:1
+2024-10-28T21:02:03.256+0800	msg/msg_handler.go:190	add to push mq  success:1730120522795-123-456-0-668588
+2024-10-28T21:04:08.886+0800	msg/msg_handler.go:171	send msg success  msgId:1730120648813-123-456-0-197192,chatType:0, msgType:1, sequence:2
+2024-10-28T21:04:08.892+0800	msg/msg_handler.go:190	add to push mq  success:1730120648813-123-456-0-197192
+2024-10-28T21:06:14.989+0800	msg/msg_handler.go:171	send msg success  msgId:1730120774935-123-456-0-340237,chatType:0, msgType:1, sequence:3
+2024-10-28T21:06:14.998+0800	msg/msg_handler.go:190	add to push mq  success:1730120774935-123-456-0-340237
+2024-10-28T21:10:33.954+0800	msg/msg_handler.go:171	send msg success  msgId:1730121033827-35-64-0-820042,chatType:0, msgType:1, sequence:1
+2024-10-28T21:10:33.967+0800	msg/msg_handler.go:190	add to push mq  success:1730121033827-35-64-0-820042
+2024-10-28T21:12:29.005+0800	msg/msg_handler.go:171	send msg success  msgId:1730121148940-35-64-0-39894,chatType:0, msgType:1, sequence:2
+2024-10-28T21:12:29.011+0800	msg/msg_handler.go:190	add to push mq  success:1730121148940-35-64-0-39894
+2024-10-28T21:13:19.591+0800	msg/msg_handler.go:171	send msg success  msgId:1730121199537-35-64-0-619550,chatType:0, msgType:1, sequence:3
+2024-10-28T21:13:19.596+0800	msg/msg_handler.go:190	add to push mq  success:1730121199537-35-64-0-619550
+2024-10-28T21:32:51.253+0800	msg/msg_handler.go:171	send msg success  msgId:1730122371114-35-64-0-268179,chatType:0, msgType:1, sequence:4
+2024-10-28T21:32:51.273+0800	msg/msg_handler.go:190	add to push mq  success:1730122371114-35-64-0-268179
+2024-10-28T21:33:33.765+0800	msg/msg_handler.go:171	send msg success  msgId:1730122413713-35-64-0-207320,chatType:0, msgType:1, sequence:5
+2024-10-28T21:33:33.772+0800	msg/msg_handler.go:190	add to push mq  success:1730122413713-35-64-0-207320
+2024-10-28T21:34:10.795+0800	msg/msg_handler.go:171	send msg success  msgId:1730122450738-35-64-0-701506,chatType:0, msgType:1, sequence:6
+2024-10-28T21:34:10.802+0800	msg/msg_handler.go:190	add to push mq  success:1730122450738-35-64-0-701506
+2024-10-28T22:10:15.787+0800	msg/msg_handler.go:171	send msg success  msgId:1730124615590-35-64-0-294940,chatType:0, msgType:1, sequence:7
+2024-10-28T22:10:15.804+0800	msg/msg_handler.go:190	add to push mq  success:1730124615590-35-64-0-294940

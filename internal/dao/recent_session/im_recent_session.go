@@ -1,4 +1,4 @@
-package dao
+package recent_session
 
 import (
 	"errors"

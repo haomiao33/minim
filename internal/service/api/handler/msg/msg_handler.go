@@ -22,12 +22,13 @@ type MsgHandler struct {
 
 func NewMsgHandler(router fiber.Router) *MsgHandler {
 	handler := &MsgHandler{}
+	// 单聊消息发送
 	router.Post("/msg/send", handler.SendMsg)
+	// 单聊消息同步
 	router.Post("/msg/sync", handler.SyncMsg)
 	return handler
 }
 
-// 单聊消息发送
 func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 	var msg req.ImMsgCommandReq
 	if err := c.BodyParser(&msg); err != nil {
@@ -198,7 +199,6 @@ func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 
 }
 
-// 消息同步
 func (u *MsgHandler) SyncMsg(c *fiber.Ctx) error {
 	var req req.ImMsgSyncCommandReq
 	if err := c.BodyParser(&req); err != nil {
@@ -210,5 +210,27 @@ func (u *MsgHandler) SyncMsg(c *fiber.Ctx) error {
 		logger.Errorf("--- get msg list failed:%s ---", req.ConversationId)
 		return err
 	}
-	return c.JSON(response.Success(list))
+
+	resp := resp2.ImMsgSyncCommandResp{
+		Items:     list,
+		OtherInfo: nil,
+	}
+	if req.OtherId > 0 {
+		//获取用户信息附带返回
+		info, err := dao.UserDao.GetUserByFiled(db.Db, req.OtherId, []string{
+			"user_id", "avatar", "nick_name", "user_type",
+		})
+		if err != nil {
+			logger.Errorf("--- get user failed:%s ---", req.OtherId)
+			return err
+		}
+		resp.OtherInfo = &resp2.ImUserInfoResp{
+			UserID:   info.UserID,
+			NickName: info.NickName,
+			Avatar:   info.Avatar,
+			UserType: info.UserType,
+		}
+	}
+
+	return c.JSON(response.Success(resp))
 }

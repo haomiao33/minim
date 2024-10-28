@@ -60,3 +60,179 @@ echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
 2024-10-27T18:26:37.198+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
 2024-10-27T18:26:37.332+0800	ws/ws_server.go:302	push to to:456
 2024-10-27T18:26:37.332+0800	ws/ws_server.go:309	push to user:456
+2024-10-28T10:33:39.176+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:49463, read: EOF
+
+2024-10-28T10:33:39.179+0800	ws/ws_server.go:192	conn[127.0.0.1:49463] disconnected
+2024-10-28T10:33:41.323+0800	ws/ws_server.go:183	conn[127.0.0.1:50771] connected
+2024-10-28T10:33:41.333+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T10:33:42.086+0800	ws/ws_server.go:302	push to to:456
+2024-10-28T10:33:42.086+0800	ws/ws_server.go:309	push to user:456
+2024-10-28T10:37:10.460+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:49449, read: EOF
+
+2024-10-28T10:37:10.471+0800	ws/ws_server.go:192	conn[127.0.0.1:49449] disconnected
+2024-10-28T10:37:12.365+0800	ws/ws_server.go:183	conn[127.0.0.1:51190] connected
+2024-10-28T10:37:12.379+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":456}}
+2024-10-28T10:37:14.718+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:50771, read: EOF
+
+2024-10-28T10:37:14.718+0800	ws/ws_server.go:192	conn[127.0.0.1:50771] disconnected
+2024-10-28T10:37:15.946+0800	ws/ws_server.go:183	conn[127.0.0.1:51200] connected
+2024-10-28T10:37:15.955+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T10:37:16.096+0800	ws/ws_server.go:302	push to to:456
+2024-10-28T10:37:16.096+0800	ws/ws_server.go:309	push to user:456
+2024-10-28T11:31:06.529+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:51200, read: EOF
+
+2024-10-28T11:31:06.533+0800	ws/ws_server.go:192	conn[127.0.0.1:51200] disconnected
+2024-10-28T11:31:08.652+0800	ws/ws_server.go:183	conn[127.0.0.1:56979] connected
+2024-10-28T11:31:08.663+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T11:31:09.012+0800	ws/ws_server.go:302	push to to:456
+2024-10-28T11:31:09.012+0800	ws/ws_server.go:309	push to user:456
+2024-10-28T11:31:32.832+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:51190, read: EOF
+
+2024-10-28T11:31:32.832+0800	ws/ws_server.go:192	conn[127.0.0.1:51190] disconnected
+2024-10-28T11:39:25.421+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:56979, read: EOF
+
+2024-10-28T11:39:25.422+0800	ws/ws_server.go:192	conn[127.0.0.1:56979] disconnected
+2024-10-28T11:39:27.210+0800	ws/ws_server.go:183	conn[127.0.0.1:57792] connected
+2024-10-28T11:39:27.220+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T11:42:35.134+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-28T11:42:35.169+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-28T11:42:35.169+0800	logging/logger.go:249	default logging level is INFO
+2024-10-28T11:42:35.169+0800	ws/ws_server.go:137	ws server run ret=bind: address already in use
+2024-10-28T11:42:35.170+0800	ws/ws_server.go:140	server exit
+2024-10-28T11:42:50.267+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-28T11:42:50.280+0800	logging/logger.go:249	default logging level is INFO
+2024-10-28T11:42:50.280+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-28T11:42:50.280+0800	ws/ws_server.go:137	ws server run ret=bind: address already in use
+2024-10-28T11:42:50.280+0800	ws/ws_server.go:140	server exit
+2024-10-28T11:42:55.469+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-28T11:42:55.481+0800	logging/logger.go:249	default logging level is INFO
+2024-10-28T11:42:55.481+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-28T11:42:55.481+0800	ws/ws_server.go:137	ws server run ret=bind: address already in use
+2024-10-28T11:42:55.481+0800	ws/ws_server.go:140	server exit
+2024-10-28T11:42:58.153+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-28T11:42:58.166+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-28T11:42:58.166+0800	logging/logger.go:249	default logging level is INFO
+2024-10-28T11:42:58.166+0800	ws/ws_server.go:137	ws server run ret=bind: address already in use
+2024-10-28T11:42:58.166+0800	ws/ws_server.go:140	server exit
+2024-10-28T11:43:00.748+0800	ws/ws_server.go:88	starting gRPC server on haomiao-yx.com:4001
+2024-10-28T11:43:00.759+0800	ws/ws_server.go:125	gRPC server is running on:haomiao-yx.com:4001 
+2024-10-28T11:43:00.759+0800	logging/logger.go:249	default logging level is INFO
+2024-10-28T11:43:00.759+0800	logging/logger.go:256	Launching gnet with 8 event-loops, listening on: tcp4://0.0.0.0:3000
+2024-10-28T11:43:00.759+0800	ws/ws_server.go:145	echo server with multi-core=true is listening on tcp4://0.0.0.0:3000
+
+2024-10-28T11:43:14.679+0800	ws/ws_server.go:183	conn[127.0.0.1:58199] connected
+2024-10-28T11:43:14.689+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":456}}
+2024-10-28T11:43:19.740+0800	ws/ws_server.go:183	conn[127.0.0.1:58214] connected
+2024-10-28T11:43:19.751+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T11:43:19.882+0800	ws/ws_server.go:302	push to to:456
+2024-10-28T11:43:19.882+0800	ws/ws_server.go:309	push to user:456
+2024-10-28T11:44:46.507+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:58214, read: EOF
+
+2024-10-28T11:44:46.507+0800	ws/ws_server.go:192	conn[127.0.0.1:58214] disconnected
+2024-10-28T11:44:48.073+0800	ws/ws_server.go:183	conn[127.0.0.1:58458] connected
+2024-10-28T11:44:48.083+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T11:44:48.226+0800	ws/ws_server.go:302	push to to:456
+2024-10-28T11:44:48.226+0800	ws/ws_server.go:309	push to user:456
+2024-10-28T20:54:50.368+0800	ws/ws_server.go:183	conn[192.168.0.105:41176] connected
+2024-10-28T20:55:39.392+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:58199, read: EOF
+
+2024-10-28T20:55:39.393+0800	ws/ws_server.go:192	conn[127.0.0.1:58199] disconnected
+2024-10-28T20:55:42.187+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:58458, read: EOF
+
+2024-10-28T20:55:42.188+0800	ws/ws_server.go:192	conn[127.0.0.1:58458] disconnected
+2024-10-28T21:00:14.666+0800	ws/ws_server.go:189	error occurred on connection=192.168.0.105:41176, read: EOF
+
+2024-10-28T21:00:14.668+0800	ws/ws_server.go:192	conn[192.168.0.105:41176] disconnected
+2024-10-28T21:00:17.864+0800	ws/ws_server.go:183	conn[192.168.0.105:41230] connected
+2024-10-28T21:00:22.446+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":64}}
+2024-10-28T21:02:02.779+0800	ws/ws_server.go:183	conn[127.0.0.1:52523] connected
+2024-10-28T21:02:02.791+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T21:04:06.748+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:52523, read: EOF
+
+2024-10-28T21:04:06.748+0800	ws/ws_server.go:192	conn[127.0.0.1:52523] disconnected
+2024-10-28T21:04:08.801+0800	ws/ws_server.go:183	conn[127.0.0.1:52850] connected
+2024-10-28T21:04:08.810+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T21:04:08.951+0800	ws/ws_server.go:302	push to to:64
+2024-10-28T21:04:08.951+0800	ws/ws_server.go:309	push to user:64
+2024-10-28T21:05:14.341+0800	ws/ws_server.go:161	user[64] heartbeat timeout ts:21353
+2024-10-28T21:05:14.342+0800	ws/ws_server.go:192	conn[192.168.0.105:41230] disconnected
+2024-10-28T21:05:31.392+0800	ws/ws_server.go:183	conn[192.168.0.105:41264] connected
+2024-10-28T21:05:31.415+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":64}}
+2024-10-28T21:06:13.043+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:52850, read: EOF
+
+2024-10-28T21:06:13.044+0800	ws/ws_server.go:192	conn[127.0.0.1:52850] disconnected
+2024-10-28T21:06:14.922+0800	ws/ws_server.go:183	conn[127.0.0.1:53178] connected
+2024-10-28T21:06:14.932+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":123}}
+2024-10-28T21:06:15.015+0800	ws/ws_server.go:302	push to to:64
+2024-10-28T21:06:15.015+0800	ws/ws_server.go:309	push to user:64
+2024-10-28T21:10:19.977+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:53178, read: EOF
+
+2024-10-28T21:10:19.980+0800	ws/ws_server.go:192	conn[127.0.0.1:53178] disconnected
+2024-10-28T21:10:33.812+0800	ws/ws_server.go:183	conn[127.0.0.1:53872] connected
+2024-10-28T21:10:33.824+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":35}}
+2024-10-28T21:12:27.205+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:53872, read: EOF
+
+2024-10-28T21:12:27.206+0800	ws/ws_server.go:192	conn[127.0.0.1:53872] disconnected
+2024-10-28T21:12:28.925+0800	ws/ws_server.go:183	conn[127.0.0.1:54191] connected
+2024-10-28T21:12:28.935+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":35}}
+2024-10-28T21:12:29.039+0800	ws/ws_server.go:302	push to to:64
+2024-10-28T21:12:29.039+0800	ws/ws_server.go:309	push to user:64
+2024-10-28T21:12:44.382+0800	ws/ws_server.go:161	user[64] heartbeat timeout ts:22984
+2024-10-28T21:12:44.383+0800	ws/ws_server.go:192	conn[192.168.0.105:41264] disconnected
+2024-10-28T21:13:02.776+0800	ws/ws_server.go:183	conn[192.168.0.105:41308] connected
+2024-10-28T21:13:02.807+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":64}}
+2024-10-28T21:13:18.445+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:54191, read: EOF
+
+2024-10-28T21:13:18.445+0800	ws/ws_server.go:192	conn[127.0.0.1:54191] disconnected
+2024-10-28T21:13:19.524+0800	ws/ws_server.go:183	conn[127.0.0.1:54327] connected
+2024-10-28T21:13:19.534+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":35}}
+2024-10-28T21:13:19.621+0800	ws/ws_server.go:302	push to to:64
+2024-10-28T21:13:19.621+0800	ws/ws_server.go:309	push to user:64
+2024-10-28T21:13:44.392+0800	ws/ws_server.go:161	user[64] heartbeat timeout ts:26469
+2024-10-28T21:13:44.392+0800	ws/ws_server.go:192	conn[192.168.0.105:41308] disconnected
+2024-10-28T21:14:01.758+0800	ws/ws_server.go:183	conn[192.168.0.105:41326] connected
+2024-10-28T21:14:01.786+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":64}}
+2024-10-28T21:15:44.712+0800	ws/ws_server.go:189	error occurred on connection=192.168.0.105:41326, read: EOF
+
+2024-10-28T21:15:44.712+0800	ws/ws_server.go:192	conn[192.168.0.105:41326] disconnected
+2024-10-28T21:32:18.719+0800	ws/ws_server.go:183	conn[192.168.0.105:41500] connected
+2024-10-28T21:32:18.784+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":64}}
+2024-10-28T21:32:47.755+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:54327, read: EOF
+
+2024-10-28T21:32:47.756+0800	ws/ws_server.go:192	conn[127.0.0.1:54327] disconnected
+2024-10-28T21:32:51.097+0800	ws/ws_server.go:183	conn[127.0.0.1:57552] connected
+2024-10-28T21:32:51.110+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":35}}
+2024-10-28T21:32:51.351+0800	ws/ws_server.go:302	push to to:64
+2024-10-28T21:32:51.351+0800	ws/ws_server.go:309	push to user:64
+2024-10-28T21:33:32.697+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:57552, read: EOF
+
+2024-10-28T21:33:32.698+0800	ws/ws_server.go:192	conn[127.0.0.1:57552] disconnected
+2024-10-28T21:33:33.700+0800	ws/ws_server.go:183	conn[127.0.0.1:57672] connected
+2024-10-28T21:33:33.709+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":35}}
+2024-10-28T21:34:09.927+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:57672, read: EOF
+
+2024-10-28T21:34:09.927+0800	ws/ws_server.go:192	conn[127.0.0.1:57672] disconnected
+2024-10-28T21:34:10.725+0800	ws/ws_server.go:183	conn[127.0.0.1:57799] connected
+2024-10-28T21:34:10.735+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":35}}
+2024-10-28T21:34:10.817+0800	ws/ws_server.go:302	push to to:64
+2024-10-28T21:34:10.817+0800	ws/ws_server.go:309	push to user:64
+2024-10-28T21:55:29.876+0800	ws/ws_server.go:189	error occurred on connection=192.168.0.105:41500, read: EOF
+
+2024-10-28T21:55:29.879+0800	ws/ws_server.go:192	conn[192.168.0.105:41500] disconnected
+2024-10-28T22:08:43.461+0800	ws/ws_server.go:183	conn[192.168.0.105:41828] connected
+2024-10-28T22:08:43.576+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":64}}
+2024-10-28T22:10:02.700+0800	ws/ws_server.go:189	error occurred on connection=192.168.0.105:41828, read: EOF
+
+2024-10-28T22:10:02.702+0800	ws/ws_server.go:192	conn[192.168.0.105:41828] disconnected
+2024-10-28T22:10:04.959+0800	ws/ws_server.go:183	conn[192.168.0.105:41856] connected
+2024-10-28T22:10:05.039+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":64}}
+2024-10-28T22:10:14.281+0800	ws/ws_server.go:189	error occurred on connection=127.0.0.1:57799, read: EOF
+
+2024-10-28T22:10:14.282+0800	ws/ws_server.go:192	conn[127.0.0.1:57799] disconnected
+2024-10-28T22:10:15.574+0800	ws/ws_server.go:183	conn[127.0.0.1:64272] connected
+2024-10-28T22:10:15.587+0800	ws/ws_server.go:253	COMMAND_TYPE_LOGIN:{"type":"login","data":{"userId":35}}
+2024-10-28T22:10:15.977+0800	ws/ws_server.go:302	push to to:64
+2024-10-28T22:10:15.977+0800	ws/ws_server.go:309	push to user:64
+2024-10-28T22:12:27.802+0800	ws/ws_server.go:189	error occurred on connection=192.168.0.105:41856, read: EOF
+
+2024-10-28T22:12:27.802+0800	ws/ws_server.go:192	conn[192.168.0.105:41856] disconnected
