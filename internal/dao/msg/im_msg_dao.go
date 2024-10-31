@@ -2,7 +2,6 @@ package msg
 
 import (
 	"errors"
-	"github.com/guregu/null/v5"
 	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"gorm.io/gorm"
 	"im/internal/model"
@@ -68,10 +67,10 @@ func (m *ImMsgDao) AddMsg(tx *gorm.DB,
 		FromID:         fromId,
 		ToID:           toId,
 		Content:        content,
-		MsgTime:        null.TimeFrom(time.UnixMilli(msgTs)),
+		MsgTime:        model.MyTime{time.UnixMilli(msgTs)},
 		Status:         status,
-		CreatedTime:    null.TimeFrom(time.Now()),
-		UpdateTime:     null.TimeFrom(time.Now()),
+		CreatedTime:    model.MyTime{time.Now()},
+		UpdatedTime:    model.MyTime{time.Now()},
 	}
 	ret := tx.Table("im_msg").Create(msg)
 	if ret.Error != nil {

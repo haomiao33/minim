@@ -7,7 +7,6 @@ require (
 	github.com/go-redsync/redsync/v4 v4.13.0
 	github.com/gobwas/ws v1.4.0
 	github.com/google/uuid v1.6.0
-	github.com/guregu/null/v5 v5.0.0
 	github.com/hashicorp/consul/api v1.30.0
 	github.com/mbobakov/grpc-consul-resolver v1.5.3
 	github.com/panjf2000/gnet/v2 v2.5.9

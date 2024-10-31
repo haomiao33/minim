@@ -76,3 +76,52 @@ server start at 0.0.0.0:3100
 2024-10-28T21:34:10.802+0800	msg/msg_handler.go:190	add to push mq  success:1730122450738-35-64-0-701506
 2024-10-28T22:10:15.787+0800	msg/msg_handler.go:171	send msg success  msgId:1730124615590-35-64-0-294940,chatType:0, msgType:1, sequence:7
 2024-10-28T22:10:15.804+0800	msg/msg_handler.go:190	add to push mq  success:1730124615590-35-64-0-294940
+2024-10-30T11:01:16.584+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-30T11:03:01.819+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-30T11:04:11.528+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-30T11:10:05.322+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-30T11:16:12.548+0800	msg/msg_handler.go:171	send msg success  msgId:1730258172289-35-64-0-572675,chatType:0, msgType:1, sequence:7
+2024-10-30T11:16:12.560+0800	msg/msg_handler.go:190	add to push mq  success:1730258172289-35-64-0-572675
+2024-10-30T11:23:02.837+0800	msg/msg_handler.go:171	send msg success  msgId:1730258582762-35-64-0-340259,chatType:0, msgType:1, sequence:8
+2024-10-30T11:23:02.846+0800	msg/msg_handler.go:190	add to push mq  success:1730258582762-35-64-0-340259
+2024-10-30T11:28:12.052+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-30T11:30:26.334+0800	msg/msg_handler.go:171	send msg success  msgId:1730259026239-35-64-0-235912,chatType:0, msgType:1, sequence:9
+2024-10-30T11:30:26.340+0800	msg/msg_handler.go:190	add to push mq  success:1730259026239-35-64-0-235912
+2024-10-30T11:32:01.310+0800	msg/msg_handler.go:171	send msg success  msgId:1730259121249-35-64-0-35959,chatType:0, msgType:1, sequence:10
+2024-10-30T11:32:01.312+0800	msg/msg_handler.go:190	add to push mq  success:1730259121249-35-64-0-35959
+2024-10-30T11:37:47.910+0800	msg/msg_handler.go:171	send msg success  msgId:1730259467843-35-64-0-512468,chatType:0, msgType:1, sequence:11
+2024-10-30T11:37:47.914+0800	msg/msg_handler.go:190	add to push mq  success:1730259467843-35-64-0-512468
+2024-10-30T11:42:09.316+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-30T11:42:44.370+0800	msg/msg_handler.go:171	send msg success  msgId:1730259764272-35-64-0-553173,chatType:0, msgType:1, sequence:12
+2024-10-30T11:42:44.377+0800	msg/msg_handler.go:190	add to push mq  success:1730259764272-35-64-0-553173
+2024-10-30T11:59:48.625+0800	msg/msg_handler.go:171	send msg success  msgId:1730260788551-35-64-0-250359,chatType:0, msgType:1, sequence:13
+2024-10-30T11:59:48.629+0800	msg/msg_handler.go:190	add to push mq  success:1730260788551-35-64-0-250359
+2024-10-30T19:59:48.585+0800	msg/msg_handler.go:171	send msg success  msgId:1730289588343-35-64-0-491743,chatType:0, msgType:1, sequence:14
+2024-10-30T19:59:48.605+0800	msg/msg_handler.go:190	add to push mq  success:1730289588343-35-64-0-491743
+2024-10-30T20:01:18.036+0800	msg/msg_handler.go:171	send msg success  msgId:1730289677987-35-64-0-584002,chatType:0, msgType:1, sequence:15
+2024-10-30T20:01:18.042+0800	msg/msg_handler.go:190	add to push mq  success:1730289677987-35-64-0-584002
+2024-10-30T20:01:51.109+0800	msg/msg_handler.go:171	send msg success  msgId:1730289711058-35-64-0-656988,chatType:0, msgType:1, sequence:16
+2024-10-30T20:01:51.113+0800	msg/msg_handler.go:190	add to push mq  success:1730289711058-35-64-0-656988
+2024-10-30T20:02:50.847+0800	msg/msg_handler.go:171	send msg success  msgId:1730289770790-35-64-0-19150,chatType:0, msgType:1, sequence:17
+2024-10-30T20:02:50.852+0800	msg/msg_handler.go:190	add to push mq  success:1730289770790-35-64-0-19150
+2024-10-31T11:17:02.934+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-31T11:19:42.013+0800	msg/msg_handler.go:171	send msg success  msgId:1730344781914-35-64-0-892225,chatType:0, msgType:1, sequence:18
+2024-10-31T11:19:42.022+0800	msg/msg_handler.go:190	add to push mq  success:1730344781914-35-64-0-892225
+2024-10-31T11:23:13.945+0800	msg/msg_handler.go:171	send msg success  msgId:1730344993888-35-64-0-167066,chatType:0, msgType:1, sequence:1
+2024-10-31T11:23:13.950+0800	msg/msg_handler.go:190	add to push mq  success:1730344993888-35-64-0-167066
+2024-10-31T11:25:33.558+0800	msg/msg_handler.go:171	send msg success  msgId:1730345133501-35-64-0-276255,chatType:0, msgType:1, sequence:2
+2024-10-31T11:25:33.564+0800	msg/msg_handler.go:190	add to push mq  success:1730345133501-35-64-0-276255
+2024-10-31T11:26:53.369+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-31T11:27:38.617+0800	msg/msg_handler.go:171	send msg success  msgId:1730345258558-35-64-0-141087,chatType:0, msgType:1, sequence:3
+2024-10-31T11:27:38.622+0800	msg/msg_handler.go:190	add to push mq  success:1730345258558-35-64-0-141087
+2024-10-31T11:29:13.798+0800	msg/msg_handler.go:171	send msg success  msgId:1730345353743-35-64-0-506468,chatType:0, msgType:1, sequence:4
+2024-10-31T11:29:13.804+0800	msg/msg_handler.go:190	add to push mq  success:1730345353743-35-64-0-506468
+2024-10-31T11:32:46.518+0800	msg/msg_handler.go:171	send msg success  msgId:1730345566439-35-64-0-570116,chatType:0, msgType:1, sequence:5
+2024-10-31T11:32:46.522+0800	msg/msg_handler.go:190	add to push mq  success:1730345566439-35-64-0-570116
+2024-10-31T11:33:56.598+0800	msg/msg_handler.go:171	send msg success  msgId:1730345636538-35-64-0-897768,chatType:0, msgType:1, sequence:1
+2024-10-31T11:33:56.608+0800	msg/msg_handler.go:190	add to push mq  success:1730345636538-35-64-0-897768
+2024-10-31T11:37:44.332+0800	api/api_server.go:39	server start at 0.0.0.0:3100
+2024-10-31T11:38:28.734+0800	msg/msg_handler.go:171	send msg success  msgId:1730345908675-35-64-0-677788,chatType:0, msgType:1, sequence:1
+2024-10-31T11:38:28.737+0800	msg/msg_handler.go:190	add to push mq  success:1730345908675-35-64-0-677788
+2024-10-31T11:39:35.374+0800	msg/msg_handler.go:171	send msg success  msgId:2134012-100-123-abc123,chatType:3, msgType:3, sequence:1
+2024-10-31T11:39:35.381+0800	msg/msg_handler.go:190	add to push mq  success:2134012-100-123-abc123

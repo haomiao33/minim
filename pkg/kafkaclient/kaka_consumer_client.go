@@ -17,6 +17,7 @@ func NewKafkaConsumerClient(ctx context.Context, address string, groupId string)
 		"bootstrap.servers":        address,
 		"group.id":                 groupId,
 		"auto.offset.reset":        "earliest",
+		"broker.address.family":    "v4",
 		"enable.auto.offset.store": false,
 		"session.timeout.ms":       6000,
 	})

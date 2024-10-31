@@ -2,7 +2,6 @@ package conversation
 
 import (
 	"errors"
-	"github.com/guregu/null/v5"
 	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"gorm.io/gorm"
 	"im/internal/model"
@@ -39,8 +38,8 @@ func (d *ImConversationDao) AddConversation(tx *gorm.DB, chatType int32, bigId i
 		SmallID:     smallId,
 		Type:        int(chatType),
 		Sequence:    0,
-		CreatedTime: null.NewTime(time.Now(), true),
-		UpdatedTime: null.NewTime(time.Now(), true),
+		CreatedTime: model.MyTime{time.Now()},
+		UpdatedTime: model.MyTime{time.Now()},
 	}
 	ret := tx.Table("im_conversation").Create(&conversation)
 	if ret.Error != nil {

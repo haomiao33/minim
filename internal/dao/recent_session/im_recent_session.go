@@ -2,7 +2,6 @@ package recent_session
 
 import (
 	"errors"
-	"github.com/guregu/null/v5"
 	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"gorm.io/gorm"
 	"im/internal/model"
@@ -40,9 +39,9 @@ func (s *ImRecentSessionDao) Add(tx *gorm.DB, conversationId int64, chatType int
 		ConversationId: conversationId,
 		LastMsgId:      lastMsgId,
 		LastMsg:        lastMsg,
-		LastMsgTime:    lastMsgTime,
-		CreatedTime:    null.TimeFrom(time.Now()),
-		UpdatedTime:    null.TimeFrom(time.Now()),
+		LastMsgTime:    model.MyTime{lastMsgTime},
+		CreatedTime:    model.MyTime{time.Now()},
+		UpdatedTime:    model.MyTime{time.Now()},
 		SessionMute:    0,
 		SessionTop:     0,
 	}
