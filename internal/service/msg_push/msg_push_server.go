@@ -131,7 +131,7 @@ func (s *MsgPushServer) OnPushMsg(ctx context.Context, data []byte) error {
 
 	resp, err := s.onlineRpc.GetOnlineUser(ctx, &pb.GetOnlineUserRequest{UserId: msg.ToID})
 	if err != nil {
-		logger.Infof("user is outline,  toId:%d, msgId:%s", msg.ToID, msg.ID)
+		logger.Infof("user is outline,  toId:%d, msgId:%s, err:%v", msg.ToID, msg.ID, err)
 		//todo 离线推送
 
 		return nil

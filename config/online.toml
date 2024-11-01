@@ -18,4 +18,4 @@ Password = ""
 
 [App]
 #  在线用户超时
-OnlineUserTimeOutSeconds = 11
+OnlineUserTimeOutSeconds = 30
