@@ -15,10 +15,8 @@ type ImMsg struct {
 	ReplyTo        int64   `gorm:"column:reply_to" json:"replyTo"`
 	MsgAudit       int     `gorm:"column:msg_audit" json:"msgAudit"` // 0=默认
 	RefID          *string `gorm:"column:ref_id" json:"refId"`       // 关联消息id
-	Revoked        int     `gorm:"column:revoked" json:"revoked"`
 	MsgTime        MyTime  `gorm:"column:msg_time" json:"msgTime"`
 	RevokedTime    MyTime  `gorm:"column:revoked_time" json:"revokedTime"`
-	RevokedBy      int64   `gorm:"column:revoked_by" json:"revokedBy"`
 	CreatedTime    MyTime  `gorm:"column:created_time" json:"createdTime"`
 	UpdatedTime    MyTime  `gorm:"column:updated_time" json:"updatedTime"`
 	DeletedTime    MyTime  `gorm:"column:deleted_time" json:"deletedTime"`
