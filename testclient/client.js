@@ -4,6 +4,7 @@ const WebSocket = require("ws");
 const ws = new WebSocket("ws://0.0.0.0:3000"); // 替换为你的 WebSocket 服务器地址
 
 const userId = parseInt(process.argv[2]) || 37;
+const msgStr = process.argv[3] || "hello world";
 
 let sequence = 0
 let localMsg = []
@@ -35,7 +36,7 @@ function sendMsg(){
             msgType: 1,           // 消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话
             fromId: userId,    // 发送者
             toId: 64,      // 接收者
-            content: "到阿吉阿里萨法的身份",   // 消息内容
+            content: msgStr,   // 消息内容
             ts: Date.now()
         }
     fetch('http://0.0.0.0:3100/api/v1/msg/send', {
