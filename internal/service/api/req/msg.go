@@ -10,7 +10,7 @@ type ImMsgCommandReq struct {
 	MsgType int32  `json:"msgType"`
 	FromId  int64  `json:"fromId"`
 	ToId    int64  `json:"toId"`
-	Message string `json:"message"`
+	Content string `json:"content"`
 	//消息时间戳
 	Ts int64 `json:"ts"`
 }

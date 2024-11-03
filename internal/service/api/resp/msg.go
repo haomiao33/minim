@@ -5,9 +5,14 @@ import (
 )
 
 type MsgSendResp struct {
-	MsgId          string `json:"msgId"`
-	Sequence       int64  `json:"sequence"`
-	ConversationId int64  `json:"conversationId"`
+	Id             string       `json:"id"`
+	Sequence       int64        `json:"sequence"`
+	Status         int          `json:"status"`
+	ConversationId int64        `json:"conversationId"`
+	RevokedTime    model.MyTime `json:"revokedTime"`
+	CreatedTime    model.MyTime `json:"createdTime"`
+	UpdatedTime    model.MyTime `json:"updatedTime"`
+	DeletedTime    model.MyTime `json:"deletedTime"`
 }
 
 type ImUserInfoResp struct {

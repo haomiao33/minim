@@ -29,7 +29,7 @@ async function createWebSocketClientTob(clientId) {
                     msgType: 1,           // 消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话
                     fromId: clientId,    // 发送者
                     toId: 456,      // 接收者
-                    message: "Hello!-456-to-123-" + clientId,   // 消息内容
+                    content: "Hello!-456-to-123-" + clientId,   // 消息内容
                     ts: Date.now()
                 }
             };
@@ -98,7 +98,7 @@ async function createWebSocketClientToa(clientId) {
                             msgType: 1,           // 消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话
                             fromId: clientId,    // 发送者
                             toId: 50001,      // 接收者
-                            message: "Hello!-456-to-123-" + clientId,   // 消息内容
+                            content: "Hello!-456-to-123-" + clientId,   // 消息内容
                             ts: Date.now()
                         }
                     };

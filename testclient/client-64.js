@@ -33,7 +33,7 @@ function sendMsg() {
         msgType: 1,           // 消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话
         fromId: 456,    // 发送者
         toId: 123,      // 接收者
-        message: "Hello!",   // 消息内容
+        content: "Hello!",   // 消息内容
         ts: Date.now()
     }
     fetch('http://0.0.0.0:3100/api/v1/msg/send', {

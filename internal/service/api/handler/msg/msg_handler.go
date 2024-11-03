@@ -44,9 +44,14 @@ func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 	if getMsg != nil {
 		logger.Warnf("--- msg already exist:%s ---", msg.MsgId)
 		resp := resp2.MsgSendResp{
-			MsgId:          msg.MsgId,
+			Id:             msg.MsgId,
 			Sequence:       getMsg.Sequence,
+			Status:         getMsg.Status,
 			ConversationId: getMsg.ConversationID,
+			CreatedTime:    getMsg.CreatedTime,
+			UpdatedTime:    getMsg.UpdatedTime,
+			DeletedTime:    getMsg.DeletedTime,
+			RevokedTime:    getMsg.RevokedTime,
 		}
 		return c.JSON(response.Success(resp))
 	}
@@ -104,7 +109,7 @@ func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 	//添加消息
 	addMsg, err := dao.MsgDao.AddMsg(tx, conversation.ID, sequence, msg.MsgId,
 		int(msg.ChatType), int(msg.MsgType),
-		msg.FromId, msg.ToId, msg.Message, msg.Ts, 0)
+		msg.FromId, msg.ToId, msg.Content, msg.Ts, 0)
 	if err != nil {
 		logger.Errorf("--- add msg failed:%s ---", msg.MsgId)
 		return err
@@ -191,9 +196,14 @@ func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 	}
 
 	resp := resp2.MsgSendResp{
-		MsgId:          msg.MsgId,
+		Id:             msg.MsgId,
 		Sequence:       sequence,
 		ConversationId: conversation.ID,
+		Status:         addMsg.Status,
+		CreatedTime:    addMsg.CreatedTime,
+		UpdatedTime:    addMsg.UpdatedTime,
+		DeletedTime:    addMsg.DeletedTime,
+		RevokedTime:    addMsg.RevokedTime,
 	}
 	return c.JSON(response.Success(resp))
 
