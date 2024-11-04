@@ -5,12 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80401 (8.4.1)
  Source Host           : localhost:3306
+ Source Schema         : im
 
  Target Server Type    : MySQL
  Target Server Version : 80401 (8.4.1)
  File Encoding         : 65001
 
- Date: 22/10/2024 18:02:36
+ Date: 04/11/2024 12:04:23
 */
 
 SET NAMES utf8mb4;
@@ -24,25 +25,25 @@ CREATE TABLE `im_conversation` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `small_id` bigint NOT NULL,
   `big_id` bigint NOT NULL,
-  `type` int DEFAULT '0' COMMENT '0=单聊；1=一般群； 2=机器人',
+  `type` int DEFAULT '0' COMMENT '0=单聊；1=一般群； 2=机器人; 3=系统消息； 4=点赞收藏；5=评论和@消息；',
   `sequence` bigint DEFAULT '0' COMMENT '消息顺序',
   `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `small_big_type_index` (`small_id`,`big_id`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=13087 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13117 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
--- Table structure for im_msg
+-- Table structure for im_msg_0
 -- ----------------------------
-DROP TABLE IF EXISTS `im_msg`;
-CREATE TABLE `im_msg` (
+DROP TABLE IF EXISTS `im_msg_0`;
+CREATE TABLE `im_msg_0` (
   `id` varchar(100) NOT NULL,
   `conversation_id` bigint NOT NULL,
-  `msg_type` int NOT NULL COMMENT '消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话',
+  `msg_type` int NOT NULL COMMENT '消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话;100=系统公告；101=点赞；',
   `from_id` bigint NOT NULL,
   `to_id` bigint NOT NULL,
-  `chat_type` int NOT NULL DEFAULT '0' COMMENT '0=单聊；1=一般群； 2=机器人',
+  `chat_type` int NOT NULL DEFAULT '0' COMMENT '0=单聊；1=一般群； 2=机器人; 3=系统消息； 4=点赞收藏；5=评论和@消息；',
   `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `status` int NOT NULL DEFAULT '0' COMMENT '0=已发送, 1=已送达, 2=已读, 3=已撤回',
   `msg_read` tinyint(1) DEFAULT '0',
@@ -50,13 +51,11 @@ CREATE TABLE `im_msg` (
   `reply_to` bigint DEFAULT NULL,
   `msg_audit` int DEFAULT '0' COMMENT '0=默认',
   `ref_id` varchar(100) DEFAULT NULL COMMENT '关联消息id',
-  `revoked` tinyint(1) DEFAULT '0',
   `msg_time` datetime DEFAULT NULL,
   `revoked_time` datetime DEFAULT NULL,
-  `revoked_by` bigint DEFAULT NULL,
   `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `delete_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -67,7 +66,8 @@ DROP TABLE IF EXISTS `im_recent_session`;
 CREATE TABLE `im_recent_session` (
   `user_id` bigint NOT NULL,
   `other_id` bigint NOT NULL,
-  `type` int NOT NULL DEFAULT '0' COMMENT '0=单聊；1=一般群； 2=机器人',
+  `conversation_id` bigint NOT NULL,
+  `type` int NOT NULL DEFAULT '0' COMMENT '0=单聊；1=一般群； 2=机器人; 3=系统消息； 4=点赞收藏；5=评论和@消息；',
   `last_msg_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `last_msg` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `last_msg_time` datetime DEFAULT NULL,
