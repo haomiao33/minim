@@ -35,27 +35,6 @@ func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 		return errors.New("参数错误")
 	}
 
-	getMsg, err := dao.MsgDao.GetMsg(db.Db, msg.MsgId)
-	if err != nil {
-		logger.Errorf("--- get msg failed:%s ---", msg.MsgId)
-		return err
-	}
-
-	if getMsg != nil {
-		logger.Warnf("--- msg already exist:%s ---", msg.MsgId)
-		resp := resp2.MsgSendResp{
-			Id:             msg.MsgId,
-			Sequence:       getMsg.Sequence,
-			Status:         getMsg.Status,
-			ConversationId: getMsg.ConversationID,
-			CreatedTime:    getMsg.CreatedTime,
-			UpdatedTime:    getMsg.UpdatedTime,
-			DeletedTime:    getMsg.DeletedTime,
-			RevokedTime:    getMsg.RevokedTime,
-		}
-		return c.JSON(response.Success(resp))
-	}
-
 	bigId := msg.FromId
 	if msg.ToId > bigId {
 		bigId = msg.ToId
@@ -63,6 +42,26 @@ func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 	smallId := msg.ToId
 	if smallId > msg.FromId {
 		smallId = msg.FromId
+	}
+
+	//查询会话关系
+	conversation, err := dao.ConversationDao.GetConversation(db.Db, msg.ChatType, bigId, smallId)
+	if conversation != nil {
+		getMsg, _ := dao.MsgDao.GetMsg(db.Db, msg.MsgId, conversation.ID)
+		if getMsg != nil {
+			logger.Warnf("--- msg already exist:%s ---", msg.MsgId)
+			resp := resp2.MsgSendResp{
+				Id:             msg.MsgId,
+				Sequence:       getMsg.Sequence,
+				Status:         getMsg.Status,
+				ConversationId: getMsg.ConversationID,
+				CreatedTime:    getMsg.CreatedTime,
+				UpdatedTime:    getMsg.UpdatedTime,
+				DeletedTime:    getMsg.DeletedTime,
+				RevokedTime:    getMsg.RevokedTime,
+			}
+			return c.JSON(response.Success(resp))
+		}
 	}
 
 	//lock
@@ -85,12 +84,6 @@ func (u *MsgHandler) SendMsg(c *fiber.Ctx) error {
 		}
 	}()
 
-	//查询会话关系
-	conversation, err := dao.ConversationDao.GetConversation(tx, msg.ChatType, bigId, smallId)
-	if err != nil {
-		logger.Errorf("--- get conversation failed:%s ---", msg.MsgId)
-		return err
-	}
 	if conversation == nil {
 		conversation, err = dao.ConversationDao.AddConversation(tx, msg.ChatType, bigId, smallId)
 		if err != nil {
@@ -241,6 +234,15 @@ func (u *MsgHandler) SyncMsg(c *fiber.Ctx) error {
 			UserType: info.UserType,
 		}
 	}
+
+	//设置消息状态已送达
+	ids := make([]string, 0)
+	for _, item := range list {
+		ids = append(ids, item.ID)
+	}
+	dao.MsgDao.UpdateMsg(db.Db, req.ConversationId, ids, map[string]interface{}{
+		"status": 1, // 0=已发送, 1=已送达, 2=已读, 3=已撤回
+	})
 
 	return c.JSON(response.Success(resp))
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/panjf2000/gnet/v2/pkg/logging"
 	"gorm.io/gorm"
 	"im/internal/model"
+	"im/internal/sharding"
 	"time"
 )
 
@@ -15,9 +16,9 @@ func NewImMsgDao() *ImMsgDao {
 	return &ImMsgDao{}
 }
 
-func (m *ImMsgDao) GetMsg(tx *gorm.DB, msgId string) (*model.ImMsg, error) {
+func (m *ImMsgDao) GetMsg(tx *gorm.DB, msgId string, conversationId int64) (*model.ImMsg, error) {
 	var msgModel model.ImMsg
-	ret := tx.Table("im_msg").
+	ret := tx.Table(sharding.GetTableName("im_msg", conversationId)).
 		Where("id = ?", msgId).
 		First(&msgModel)
 	if ret.Error != nil {
@@ -32,7 +33,7 @@ func (m *ImMsgDao) GetMsg(tx *gorm.DB, msgId string) (*model.ImMsg, error) {
 // 获取会话中大于指定序号的所有消息
 func (m *ImMsgDao) GetMsgList(tx *gorm.DB, conversationId int64, sequence int64) ([]model.ImMsg, error) {
 	var items []model.ImMsg
-	ret := tx.Table("im_msg").
+	ret := tx.Table(sharding.GetTableName("im_msg", conversationId)).
 		Where("conversation_id = ?", conversationId).
 		Where("sequence > ?", sequence).
 		Where("status = ?", 0).
@@ -72,11 +73,22 @@ func (m *ImMsgDao) AddMsg(tx *gorm.DB,
 		CreatedTime:    model.MyTime{time.Now()},
 		UpdatedTime:    model.MyTime{time.Now()},
 	}
-	ret := tx.Table("im_msg").Create(msg)
+	ret := tx.Table(sharding.GetTableName("im_msg", conversationId)).Create(msg)
 	if ret.Error != nil {
 		logging.Errorf("--- add msg failed:%v %d %d---",
 			chatType, fromId, toId)
 		return nil, ret.Error
 	}
 	return msg, nil
+}
+
+func (m *ImMsgDao) UpdateMsg(tx *gorm.DB, conversationId int64, msgIds []string, body map[string]interface{}) error {
+	ret := tx.Table(sharding.GetTableName("im_msg", conversationId)).
+		Where("id in ?", msgIds).
+		Updates(body)
+	if ret.Error != nil {
+		logging.Errorf("--- UpdateMsg failed:%v, ---", msgIds)
+		return ret.Error
+	}
+	return nil
 }
