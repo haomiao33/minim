@@ -1,6 +1,7 @@
 package msg
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -14,18 +15,27 @@ import (
 	"im/internal/service/api/config"
 	"im/internal/service/api/req"
 	resp2 "im/internal/service/api/resp"
+	"im/pb"
+	"im/pkg/rpcclient"
 	"time"
 )
 
 type MsgHandler struct {
+	offlineClient pb.OfflineServiceClient
 }
 
 func NewMsgHandler(router fiber.Router) *MsgHandler {
-	handler := &MsgHandler{}
+
+	handler := &MsgHandler{
+		offlineClient: rpcclient.NewOffLineRpcClient(context.Background(),
+			config.Config.Consul.Address, "OffLineService"),
+	}
 	// 单聊消息发送
 	router.Post("/msg/send", handler.SendMsg)
 	// 单聊消息同步
 	router.Post("/msg/sync", handler.SyncMsg)
+	//推送离线消息测试
+	router.Post("/msg/offline/pushtest", handler.PushTest)
 	return handler
 }
 
@@ -245,4 +255,13 @@ func (u *MsgHandler) SyncMsg(c *fiber.Ctx) error {
 	})
 
 	return c.JSON(response.Success(resp))
+}
+
+func (u *MsgHandler) PushTest(c *fiber.Ctx) error {
+	u.offlineClient.Push(c.Context(), &pb.OfflinePushRequest{
+		Title:   "测试推送",
+		Content: "测试推送内容",
+		UserId:  1,
+	})
+	return c.JSON(response.Success("ok"))
 }

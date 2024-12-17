@@ -35,7 +35,7 @@ function sendMsg(){
             chatType:0,     //0=单聊；1=一般群； 2=机器人
             msgType: 1,           // 消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话
             fromId: userId,    // 发送者
-            toId: 64,      // 接收者
+            toId: 58,      // 接收者64
             content: msgStr,   // 消息内容
             ts: Date.now()
         }

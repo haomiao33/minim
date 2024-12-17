@@ -7,6 +7,14 @@ Level = "debug"
 ListenHost = "haomiao-yx.com"
 ListenPort = 4003
 
+[Database]
+Host = "haomiao-yx.com"
+Port = 3306
+User = "root"
+Password = "my-secret-pw"
+Database = "xiaogongqiu"
+
+
 [Consul]
 Address = "haomiao-yx.com:8500"
 

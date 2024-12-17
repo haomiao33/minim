@@ -5,23 +5,40 @@ import (
 	"github.com/spf13/viper"
 )
 
-type ApiConfig struct {
-	Log struct {
-		Path  string
-		Level string
+// [Xiaomi]
+// AppSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+//
+// [Huawei]
+// OAuthClientId = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+// OAuthClientSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+//
+// [Vivo]
+// AppId = "xxxxxxxxxxxxxxxxxxxxxxxx"
+// AppKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+// AppSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+//
+// [Oppo]
+// AppKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+// AppServerSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+type OffLineConfig struct {
+	XiaoMi struct {
+		AppSecret string
+	}
+	HuaWei struct {
+		OAuthClientId     string
+		OAuthClientSecret string
+	}
+	Vivo struct {
+		AppId     string
+		AppKey    string
+		AppSecret string
+	}
+	Oppo struct {
+		AppKey          string
+		AppServerSecret string
 	}
 	Consul struct {
 		Address string
-	}
-	Redis struct {
-		Addr     string
-		Password string
-	}
-	Kafka struct {
-		Addresses         string
-		MsgPartitionCount int
-		MsgTopic          string
-		MsgTopicGroup     string
 	}
 	Database struct {
 		Host     string
@@ -30,23 +47,20 @@ type ApiConfig struct {
 		Password string
 		Database string
 	}
-	App struct {
-		Listener string
+	Log struct {
+		Path  string
+		Level string
 	}
-	Oss struct {
-		AccessKeyId     string
-		AccessKeySecret string
-		BucketName      string
-		Endpoint        string
-		Host            string
-		Region          string
+	Rpc struct {
+		ListenHost string
+		ListenPort int
 	}
 }
 
-var Config *ApiConfig
+var Config *OffLineConfig
 
 func Init() {
-	viper.SetConfigName("api")          // name of config file (without extension)
+	viper.SetConfigName("offline")      // name of config file (without extension)
 	viper.SetConfigType("toml")         // REQUIRED if the config file does not have the extension in the name
 	viper.AddConfigPath("../config")    // call multiple times to add many search paths
 	viper.AddConfigPath("../../config") // call multiple times to add many search paths

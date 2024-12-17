@@ -1,0 +1,37 @@
+
+
+[Log]
+Path = "logs/offline.log"
+Level = "debug"
+
+
+[Database]
+Host = "haomiao-yx.com"
+Port = 3306
+User = "root"
+Password = "my-secret-pw"
+Database = "xiaogongqiu"
+
+
+[Rpc]
+ListenHost = "haomiao-yx.com"
+ListenPort = 4005
+
+[Consul]
+Address = "haomiao-yx.com:8500"
+
+[Xiaomi]
+AppSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+[Huawei]
+OAuthClientId = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+OAuthClientSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+[Vivo]
+AppId = "xxxxxxxxxxxxxxxxxxxxxxxx"
+AppKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+AppSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+[Oppo]
+AppKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+AppServerSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"

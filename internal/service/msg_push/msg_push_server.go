@@ -7,6 +7,9 @@ import (
 	"github.com/hashicorp/consul/api"
 	_ "google.golang.org/grpc/health"
 	"im/internal/command"
+	"im/internal/common"
+	"im/internal/dao"
+	"im/internal/db"
 	"im/internal/logger"
 	"im/internal/model"
 	"im/internal/service/msg_push/config"
@@ -23,6 +26,7 @@ type MsgPushServer struct {
 	ctx         context.Context
 
 	consulClient *api.Client
+	offlineRpc   pb.OfflineServiceClient
 
 	//所有的登录服务客户端
 	loginServiceMap sync.Map
@@ -48,6 +52,11 @@ func NewMsgPushServer(ctx context.Context) *MsgPushServer {
 			ctx,
 			config.Config.Consul.Address,
 			"OnlineService",
+		),
+		offlineRpc: rpcclient.NewOffLineRpcClient(
+			ctx,
+			config.Config.Consul.Address,
+			"OffLineService",
 		),
 	}
 }
@@ -132,8 +141,7 @@ func (s *MsgPushServer) OnPushMsg(ctx context.Context, data []byte) error {
 	resp, err := s.onlineRpc.GetOnlineUser(ctx, &pb.GetOnlineUserRequest{UserId: msg.ToID})
 	if err != nil {
 		logger.Infof("user is outline,  toId:%d, msgId:%s, err:%v", msg.ToID, msg.ID, err)
-		//todo 离线推送
-
+		s.pushToOffline(ctx, &msg)
 		return nil
 	}
 
@@ -141,14 +149,38 @@ func (s *MsgPushServer) OnPushMsg(ctx context.Context, data []byte) error {
 	err = s.pushMessageToOnlineUser(msg, resp.ServerId)
 	if err != nil {
 		logger.Infof("user:%d is outline, msgId:%s", msg.ToID, msg.ID)
-		//todo 离线推送
-
+		s.pushToOffline(ctx, &msg)
 		return nil
 	}
 	logger.Infof("end push online message:%s to %d",
 		msg.ID, msg.ToID)
 
 	return nil
+}
+
+func (s *MsgPushServer) pushToOffline(ctx context.Context, msg *model.ImMsg) {
+	info, err := dao.UserDao.GetUserByFiled(db.Db, msg.FromID, []string{
+		"nick_name",
+	})
+	if err != nil {
+		logger.Errorf("--- get user failed:%s ---", msg.ToID)
+		return
+	}
+	//离线推送
+	title := info.NickName + " 私信你"
+	if info.NickName == "" {
+		title = "有人私信你"
+	}
+	content := msg.Content
+	if msg.MsgType == common.MSG_TYPE_IMAGE {
+		content = "[图片]"
+	}
+	s.offlineRpc.Push(ctx, &pb.OfflinePushRequest{
+		UserId:         msg.ToID,
+		ConversationId: msg.ConversationID,
+		Title:          title,
+		Content:        content,
+	})
 }
 
 func (s *MsgPushServer) Run() error {

@@ -1,0 +1,20 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto"; // 引入预定义的 Empty 类型
+
+package myservice;
+
+option go_package = "./pb"; // Go 包路径
+
+service OfflineService {
+  //推送
+  rpc Push (OfflinePushRequest) returns (google.protobuf.Empty);
+}
+
+message OfflinePushRequest {
+  //推送给谁
+  int64 userId = 1;
+  //会话id
+  int64 conversationId = 2;
+  string title = 3;
+  string content = 4;
+}

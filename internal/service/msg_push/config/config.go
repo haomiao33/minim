@@ -13,6 +13,13 @@ type MsgPushConfig struct {
 	Consul struct {
 		Address string
 	}
+	Database struct {
+		Host     string
+		Port     int
+		User     string
+		Password string
+		Database string
+	}
 	Rpc struct {
 		ListenHost string
 		ListenPort int

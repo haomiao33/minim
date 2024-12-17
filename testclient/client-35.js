@@ -26,14 +26,20 @@ ws.on("open", () => {
 
 function sendMsg(){
      // // 模拟发送 IM 消息
-    // //msgId,from, to, message, type,ts 
+    // //msgId,from, to, message, type,ts
+    
+    const imgJson = {
+        url:'https://gips3.baidu.com/it/u=3886271102,3123389489&fm=3028&app=3028&f=JPEG&fmt=auto?w=1280&h=960',
+        thumb:'https://gips3.baidu.com/it/u=3886271102,3123389489&fm=3028&app=3028&f=JPEG&fmt=auto?w=1280&h=960'
+    }
+
     const imMessage = {
             msgId: new Date().getTime()+"-35-64-"+'0-'+Math.floor(Math.random() * 1000000) ,
             chatType:0,     //0=单聊；1=一般群； 2=机器人
-            msgType: 1,           // 消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话
+            msgType: 2,           // 消息类型； 1=文本；2=图片；3=视频；4=文件；5=通话
             fromId: 35,    // 发送者
             toId: 64,      // 接收者
-            content: "吃饭了吗",   // 消息内容
+            content: JSON.stringify(imgJson),   // 消息内容
             ts: Date.now()
         }
     fetch('http://0.0.0.0:3100/api/v1/msg/send', {

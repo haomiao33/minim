@@ -4,8 +4,8 @@ import (
 	"context"
 	"im/internal/db"
 	"im/internal/logger"
-	"im/internal/service/msg_push"
-	"im/internal/service/msg_push/config"
+	"im/internal/service/offline_push"
+	"im/internal/service/offline_push/config"
 )
 
 func main() {
@@ -22,6 +22,6 @@ func main() {
 		cfg.Database.Port,
 		cfg.Database.Database)
 
-	srv := msg_push.NewMsgPushServer(context.Background())
+	srv := offline_push.NewOffLineServer(context.Background())
 	srv.Run()
 }

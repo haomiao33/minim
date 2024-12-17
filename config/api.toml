@@ -27,3 +27,11 @@ Addresses = "haomiao-yx.com:9092"
 MsgTopic = "im-msg-push"
 MsgTopicGroup = "im-msg-push-group-1000"
 MsgPartitionCount = 1
+
+[Oss]
+Endpoint = "oss-cn-beijing.aliyuncs.com"
+AccessKeyId = ""
+AccessKeySecret = ""
+BucketName = ""
+Region="oss-cn-beijing"
+Host = ""
