@@ -6,6 +6,7 @@ sequenceDiagram
     participant kafka
     participant ServerMsgPush as MsgPush服务
     participant ServerOnline as Online服务
+    participant ServerOffline as Offline服务
 
     A->>ServerApi: 1、A发送消息给B(http)
     ServerApi->>ServerApi: 查看是否有A和B会话没有就创建；创建a和b的session；存放消息
@@ -13,7 +14,8 @@ sequenceDiagram
     ServerApi->>A: 3、返回发送成功（http）
     kafka->>ServerMsgPush: 4、收到推送通知，准备推送给用户B
     ServerMsgPush->>ServerOnline: 查询B是否在线(rpc)
-    ServerMsgPush->>ServerLogin: 5、推送消息msgSyncNotify给B(rpc)
+    ServerMsgPush-->>ServerOffline: 5-1、离线推送
+    ServerMsgPush->>ServerLogin: 5-2、推送消息msgSyncNotify给B(rpc)
     ServerLogin->>B: 6、收到msgSyncNotify(websocket)
     B->>ServerApi: 7、同步消息(http)
     ServerApi->>B: 8、同步消息成功
