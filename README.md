@@ -30,7 +30,7 @@
     5、协议简单，目前通信通道websocket只来做消息下发通知，其他的都通过api接口实现，稳定简单可靠，扩展性强
     6、使用kafka作为消息mq，高负载，后续添加群聊能很好支持
     7、有flutter客户端sdk和demo
-    8、支持离线推送，配套的离线推送anroid和flutter插件，支持（vivo、oppo、华为、小米）（https://github.com/haomiao33/ym_flutter_push）
+    8、支持离线推送，配套的离线推送anroid和flutter插件，支持（vivo、oppo、华为、小米、苹果apns）（https://github.com/haomiao33/ym_flutter_push）
 
 
 
